@@ -6,22 +6,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Nasib Ahmadov</title>
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
-<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="27">
     <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#">Nasib ahmadov</a>
-            <button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+            <button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right"
+                data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item nav-link">
                         <a class="nav-link active" href="#about">About</a>
                     </li>
                     <li class="nav-item nav-link">
-                        <a class="nav-link" href="#download">Resume (CV)</a>
+                        <a class="nav-link" href="#skills">Skills & Abilities</a>
                     </li>
                     <li class="nav-item nav-link">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -30,128 +34,174 @@
             </div>
         </div>
     </nav>
-    <header class="masthead" style="background-image:url('assets/img/main-bg1.jpg');">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row mt-2">
-                    <div class="col-lg-8 mx-auto mt-4">
-                        <h1 class="brand-heading">I'm a Web Developer</h1>
-                        <hr/>
-                        <p class="intro-text">
-                            skilled
-                            in development, and deploying applications
-                            containing logical and mathematical
-                            solutions to business problems
-                        </p><a class="btn btn-link btn-circle" role="button" href="#about"><i class="fa fa-angle-double-down animated"></i></a>
-                    </div>
+
+    <header class="custom-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Side: Image -->
+                <div class="col-lg-6 text-center text-lg-start mb-4">
+                    <img src="assets/img/developer.svg" alt="Developer" class="img-fluid" />
+                </div>
+
+                <!-- Right Side: Text -->
+                <div class="col-lg-6 text-center">
+                    <h1 class="brand-heading">I'm a Full Stack Developer</h1>
+                    <hr />
+                    <p class="intro-text">
+                        experienced in designing, developing, and deploying web applications that deliver efficient,
+                        scalable solutions to real-world business challenges.
+                    </p>
+                    <a class="btn btn-link btn-circle custom-bounce" role="button" href="#about">
+                        <i class="fa fa-angle-double-down"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </header>
-    <section class="text-center content-section" id="about">
+
+    <section class="content-section" id="about">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
+            <div class="row align-items-center flex-column-reverse flex-lg-row">
+                <!-- Left Side -->
+                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
                     <h2>Personal</h2>
-                    <p>Hi! My name is Nasib and surname is Ahmadov.I am 24 years old 
-                        and I love coding and
-                        challenging myself to learn new stuff.
-                        </p>
-                        <hr/>
+                    <p>
+                        Hi! My name is Nasib. I am
+                        <script>document.write(new Date().getFullYear() - 1997);</script>
+                        years old self-taught web developer and I love coding.
+                        I am challenging myself to learn new stuff every day.
+                    </p>
+                    <hr />
                     <h2>About</h2>
-                    <p>Web Developer with a passion for web
-                        application development and success in
-                        managing development projects using
-                        Scrum, Agile, and Lean processes. Skilled
-                        in conceptualizing, designing,
-                        development, and deploying software
-                        containing logical and mathematical
-                        solutions to business problems.
-                        Dedicated to driving innovation with the
-                        ability to follow industry and
-                        technological trends, and facilitating
-                        early adoption of innovations.
-                        </p>
+                    <p>
+                        I'm a Full Stack Developer specializing in the MERN stack (MongoDB, Express, React, Node.js).
+                        I build modern, scalable web applications with a strong focus on performance, clean
+                        architecture,
+                        and user experience. From developing dynamic frontends to designing robust backend systems,
+                        I enjoy turning ideas into functional digital solutions.
+                        I'm always eager to learn new technologies and take on new challenges that help me grow as a
+                        developer.
+                    </p>
+                </div>
+
+                <!-- Right Side -->
+                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0">
+                    <img src="assets/img/coding-bro.svg" alt="Coding-bro" class="img-fluid" />
                 </div>
             </div>
         </div>
     </section>
-    <section class="text-center download-section content-section" id="download" style="background-image:url('assets/img/main-bg2.jpg');">
+
+    <section class="content-section" id="skills">
         <div class="container">
-            <div class="col-lg-8 mx-auto">
-                <h1>TECHNICAL SKILLS</h1>
-                    <kbd>HTML5/HTML</kbd>
-                    <kbd>CSS3/CSS</kbd>
-                    <kbd>Bootstrap</kbd>
-                    <kbd>JavaScript</kbd>
-                    <kbd>jQuery</kbd>
-                    <kbd>React js</kbd>
-                    <kbd>Redux/Redux-toolkit</kbd>
-                    <kbd>Express js</kbd>
-                    <kbd>Node js</kbd>
-                    <kbd>Socket.io</kbd>
-                    <kbd>GitHub</kbd>
-                    <kbd>JSON</kbd>
-                    <kbd>NPM</kbd>
-                    <kbd><small>still learning...</small></kbd>
-                    <hr/>
-                <h2>Abilities</h2>
-                    <p>
-                        <kbd>Creative and analytical problem&nbsp;</kbd>
-                        <kbd>Solving and troubleshooting&nbsp;</kbd>
-                        <kbd>Attention to details&nbsp;</kbd>
-                        <kbd>Strong communication skills&nbsp;</kbd>
-                        <kbd>A logical approach to work&nbsp;</kbd>
-                        <kbd>The ability to explain technical matters clearly&nbsp;</kbd>
-                        <kbd>A keen interest in technology&nbsp;</kbd>
-                        <kbd>Collaboration and team work&nbsp;</kbd>
-                        <kbd>Fluent in English
-                        </p>
-                        <hr/>
-                <a 
-                class="btn btn-primary btn-lg btn-default" 
-                type="button"
-                href="https://drive.google.com/file/d/10ytBP57ZdeeG0rBaPkm5hifTkajpP7bI/view?usp=sharing"
-                target="_blank"
-                >
-                    download resume
-                </a>
+            <div class="row align-items-center">
+                <!-- Left Side -->
+                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0">
+                    <img src="assets/img/programming-bro.svg" alt="Programming-bro" class="img-fluid" />
+                </div>
+
+                <!-- Right Side -->
+                <div class="col-lg-6 text-center mb-4 mb-lg-0">
+                    <h2>TECHNICAL SKILLS</h2>
+                    <p class="d-flex justify-content-center flex-wrap gap-2">
+                        <kbd>HTML5</kbd>
+                        <kbd>CSS3</kbd>
+                        <kbd>Bootstrap</kbd>
+                        <kbd>JavaScript</kbd>
+                        <kbd>jQuery</kbd>
+                        <kbd>React.js</kbd>
+                        <kbd>Next.js</kbd>
+                        <kbd>Redux / Redux Toolkit</kbd>
+                        <kbd>Express.js</kbd>
+                        <kbd>Node.js</kbd>
+                        <kbd>MongoDB</kbd>
+                        <kbd>Socket.io</kbd>
+                        <kbd>GitHub</kbd>
+                        <kbd>GitLab</kbd>
+                        <kbd>CI/CD</kbd>
+                        <kbd>API Documentation</kbd>
+                        <kbd><small>Continuously learning...</small></kbd>
+                    </p>
+                    <hr />
+                    <h2>Abilities</h2>
+                    <p class="d-flex flex-wrap justify-content-center gap-2">
+                        <kbd>Creative & analytical problem-solving</kbd>
+                        <kbd>Detail-oriented</kbd>
+                        <kbd>Strong communication skills</kbd>
+                        <kbd>Logical and structured thinking</kbd>
+                        <kbd>Clear technical communication</kbd>
+                        <kbd>Passion for technology</kbd>
+                        <kbd>Team collaboration</kbd>
+                        <kbd>Fluent in English</kbd>
+                    </p>
+
+                    <a class="btn btn-primary btn-lg btn-default" type="button"
+                        href="https://drive.google.com/file/d/10ytBP57ZdeeG0rBaPkm5hifTkajpP7bI/view?usp=sharing"
+                        target="_blank">
+                        <i class="fa fa-download fa-fw"></i>
+                        Download resume (CV)
+                    </a>
+
+                </div>
             </div>
         </div>
     </section>
+
     <section class="text-center content-section" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <h2>Contact me</h2>
-                    <h4>Feel free to collaborate and team work</h4>
-                    <p>mobile: (+994)50 307 7897</p>
-                    <p>email: nsbahmedov@gmail.com</p>
-                    <p><small>Baku, Azerbaijan</small></p>
+                    <h1>Contact me</h1>
+                    <h5>Feel free to collaborate and team work</h5>
+                    <p>
+                        <i class="fa fa-phone fa-fw"></i>
+                        <a href="tel:+994503077897" class="text-decoration-none">
+                            (+994)50 307 78 97
+                        </a>
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope-o fa-fw"></i>
+                        <a href="mailto:nsbahmedov@gmail.com" class="text-decoration-none">
+                            nsbahmedov@gmail.com
+                    </p>
+                    </a>
+                    <p>
+                        <i class="fa fa-map-marker fa-fw"></i>
+                        <a href="https://maps.app.goo.gl/haPpwmqMVVKPBbVJ8" target="_blank"
+                            class="text-decoration-none">
+                            Baku, Azerbaijan
+                        </a>
+
+                    </p>
                     <ul class="list-inline banner-social-buttons">
                         <li class="list-inline-item">&nbsp;
-                            <a 
-                            class="btn btn-primary btn-lg btn-default" 
-                            type="button"
-                            href="https://instagram.com/ahmadovnasib"
-                            target="_blank"><i class="fa fa-instagram fa-fw"></i><span class="network-name">&nbsp;instagram</span></a>
+                            <a class="btn btn-primary btn-lg btn-default" type="button"
+                                href="https://github.com/nsbahmedov" target="_blank"><i
+                                    class="fa fa-github fa-fw"></i><span class="network-name">&nbsp;github</span></a>
                         </li>
                         <li class="list-inline-item">&nbsp;
-                            <a 
-                            class="btn btn-primary btn-lg btn-default" 
-                            type="button"
-                            href="https://github.com/nsbahmedov"
-                            target="_blank"><i class="fa fa-github fa-fw"></i><span class="network-name">&nbsp;github</span></a>
+                            <a class="btn btn-primary btn-lg btn-default" type="button"
+                                href="https://linkedin.com/in/nasib-ahmadov-web" target="_blank"><i
+                                    class="fa fa-linkedin fa-fw"></i><span
+                                    class="network-name">&nbsp;linledin</span></a>
+                        </li>
+                        <li class="list-inline-item">&nbsp;
+                            <a class="btn btn-primary btn-lg btn-default" type="button"
+                                href="https://instagram.com/ahmadovnasib" target="_blank"><i
+                                    class="fa fa-instagram fa-fw"></i><span
+                                    class="network-name">&nbsp;instagram</span></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <footer>
         <div class="container text-center">
-            <p>Copyright ©&nbsp;Nasib Ahmadov 2021</p>
+            <p>Copyright ©&nbsp;Nasib Ahmadov
+                <script>document.write(new Date().getFullYear());</script>
+            </p>
         </div>
     </footer>
 

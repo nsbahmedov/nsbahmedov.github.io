@@ -1,0 +1,40 @@
+.custom-header {
+    margin-top: 80px;
+}
+
+@media screen and (max-width: 1600px) {
+    .custom-header {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .custom-header {
+        margin-top: 160px;
+    }
+}
+
+.content-section {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+}
+
+.nav-link.active {
+    background-color: #42dca3 !important;
+}
+
+@keyframes subtle-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.custom-bounce {
+    animation: subtle-bounce 1.3s infinite ease-in-out;
+}

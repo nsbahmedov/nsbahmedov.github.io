@@ -481,8 +481,36 @@ pre {
 }
 
 .hero-title {
-    margin-bottom: 8px;
-    font-size: clamp(18px, 3vw, 24px);
+    margin-bottom: 14px;
+    line-height: 1.2;
+}
+
+/* same gradient as the name banner, with an offset outline copy behind it
+   standing in for the banner's box-drawing "shadow" */
+.hero-role {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    font-size: clamp(22px, 4.4vw, 36px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, var(--banner-from), var(--banner-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 14px var(--accent-glow));
+}
+
+.hero-role::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0.09em;
+    left: 0.09em;
+    width: 100%;
+    z-index: -1;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--accent-dim);
 }
 
 .hero-meta {
@@ -571,6 +599,25 @@ pre {
     border: 1px solid var(--line);
 }
 
+/* "more on GitHub" sits in the grid as a dashed card */
+.project-more {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: transparent;
+    border-style: dashed;
+}
+
+.project-more p {
+    margin: 0;
+}
+
+.project-type {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
 .project-links {
     display: flex;
     gap: 18px;
@@ -648,6 +695,25 @@ pre {
     margin-bottom: 14px;
 }
 
+.prose h3 {
+    margin: 26px 0 8px;
+}
+
+.md-list {
+    padding: 0;
+    margin: 0 0 1em;
+    list-style: none;
+}
+
+.md-list li::before {
+    content: "- ";
+    color: var(--accent);
+}
+
+.md-list strong {
+    color: var(--bright);
+}
+
 .md-mark {
     color: var(--accent);
 }
@@ -702,9 +768,20 @@ pre {
     outline: none;
 }
 
+/* narrow screens: drop the desktop column alignment and let each
+   property wrap with a hanging indent */
 @media (max-width: 720px) {
     .json {
-        white-space: pre-wrap;
+        white-space: normal;
+    }
+
+    .jl {
+        display: block;
+    }
+
+    .jl-in {
+        padding-left: 4ch;
+        text-indent: -2ch;
     }
 }
 
@@ -874,6 +951,33 @@ pre {
 .footer {
     padding-bottom: 40px;
     font-size: 13px;
+}
+
+.heart {
+    width: 1.05em;
+    height: 1.05em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    fill: var(--error);
+    animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%,
+    40%,
+    100% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.18);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heart {
+        animation: none;
+    }
 }
 
 /* ! 404 bug squash game */

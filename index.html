@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nasib Ahmadov — Full Stack Developer</title>
     <meta name="description"
-        content="Nasib Ahmadov is a full stack MERN developer in Baku, Azerbaijan, building fast, scalable web applications with React, Node.js and MongoDB.">
+        content="Nasib Ahmadov is a full stack developer in Baku, Azerbaijan, building web and mobile apps with TypeScript, React, Next.js, React Native and Node.js.">
     <meta name="theme-color" content="#0b0f0d">
     <link rel="canonical" href="https://nasibahmadov.com/">
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://nasibahmadov.com/">
     <meta property="og:title" content="Nasib Ahmadov — Full Stack Developer">
     <meta property="og:description"
-        content="MERN developer in Baku building fast, scalable web applications with React, Node.js and MongoDB.">
+        content="Full stack developer in Baku building web and mobile apps with TypeScript, React, Next.js, React Native and Node.js.">
     <meta property="og:image" content="https://nasibahmadov.com/assets/img/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -65,11 +65,13 @@
             <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">whoami</span></p>
             <div class="out">
                 <div class="banner" aria-hidden="true"></div>
-                <h1 class="hero-title">Nasib Ahmadov <span class="accent">— Full Stack Developer</span></h1>
-                <p class="hero-meta"><span class="muted">stack:</span> MERN &nbsp;<span class="muted">location:</span> Baku, Azerbaijan &nbsp;<span class="muted">status:</span> <span class="status-dot"></span>open to work</p>
+                <h1 class="hero-title">
+                    <span class="sr-only">Nasib Ahmadov, </span><span class="hero-role" data-text="Full Stack Developer">Full Stack Developer</span>
+                </h1>
+                <p class="hero-meta"><span class="muted">stack:</span> TypeScript · React · Next.js · Node.js &nbsp;<span class="muted">location:</span> Baku, Azerbaijan &nbsp;<span class="muted">status:</span> <span class="status-dot"></span>open to work</p>
                 <p class="hero-text">
-                    I design, build and deploy web applications that solve real business problems,
-                    from React frontends to Node.js APIs.
+                    I build web and mobile apps end to end, from React, Next.js and React Native
+                    frontends to Node.js APIs, with a focus on making things easier for the people who use them.
                 </p>
                 <p class="actions">
                     <a class="term-btn" href="#projects">[ view projects ]</a>
@@ -88,57 +90,117 @@
                     <span class="project-filter-text"></span>
                     <button type="button" class="project-filter-clear">[ show all ]</button>
                 </div>
+                <!--
+                    Each card: folder name, type, one sentence, stack tags, links.
+                    Optional screenshot: put it in assets/img/projects/ and add
+                    <img src="assets/img/projects/name.png" alt="Screenshot of ..." class="project-thumb">
+                    under the <h3>. Tags should use the same names as skills.json
+                    so clicking a skill can find the project.
+                -->
                 <div class="project-grid">
-                    <!--
-                        TODO: replace each placeholder card with a real project.
-                        For each one: a screenshot (put it in assets/img/projects/ and
-                        uncomment the <img>), one sentence on the problem it solves,
-                        the stack, and links to the live demo and the source code.
-                    -->
                     <article class="project-card">
-                        <h3>project-one/</h3>
-                        <!-- <img src="assets/img/projects/project-1.png" alt="Screenshot of Project One" class="project-thumb"> -->
-                        <p>One sentence on the problem this solves and who it is for.</p>
+                        <h3>dilmanc/</h3>
+                        <p class="project-type">full-stack · client website</p>
+                        <p>Website for a document translation company, with a modern UI and its own backend.</p>
                         <ul class="tag-list">
-                            <li class="tag">React</li>
+                            <li class="tag">Next.js</li>
+                            <li class="tag">TypeScript</li>
+                            <li class="tag">Tailwind CSS</li>
                             <li class="tag">Node.js</li>
+                            <li class="tag">Express.js</li>
                             <li class="tag">MongoDB</li>
                         </ul>
                         <p class="project-links">
-                            <a href="#" target="_blank" rel="noopener">live demo ↗</a>
-                            <a href="#" target="_blank" rel="noopener">source ↗</a>
+                            <a href="https://dilmanc.com" target="_blank" rel="noopener">dilmanc.com ↗</a>
                         </p>
                     </article>
                     <article class="project-card">
-                        <h3>project-two/</h3>
-                        <!-- <img src="assets/img/projects/project-2.png" alt="Screenshot of Project Two" class="project-thumb"> -->
-                        <p>One sentence on the problem this solves and who it is for.</p>
+                        <h3>weblash/</h3>
+                        <p class="project-type">full-stack · company website</p>
+                        <p>Company website with a modern UI and a Node.js backend behind it.</p>
                         <ul class="tag-list">
-                            <li class="tag">Next.js</li>
-                            <li class="tag">Redux Toolkit</li>
-                        </ul>
-                        <p class="project-links">
-                            <a href="#" target="_blank" rel="noopener">live demo ↗</a>
-                            <a href="#" target="_blank" rel="noopener">source ↗</a>
-                        </p>
-                    </article>
-                    <article class="project-card">
-                        <h3>project-three/</h3>
-                        <!-- <img src="assets/img/projects/project-3.png" alt="Screenshot of Project Three" class="project-thumb"> -->
-                        <p>One sentence on the problem this solves and who it is for.</p>
-                        <ul class="tag-list">
+                            <li class="tag">React</li>
+                            <li class="tag">TypeScript</li>
+                            <li class="tag">Tailwind CSS</li>
+                            <li class="tag">Node.js</li>
                             <li class="tag">Express.js</li>
-                            <li class="tag">Socket.io</li>
+                            <li class="tag">MongoDB</li>
                         </ul>
                         <p class="project-links">
-                            <a href="#" target="_blank" rel="noopener">live demo ↗</a>
-                            <a href="#" target="_blank" rel="noopener">source ↗</a>
+                            <a href="https://weblash.az" target="_blank" rel="noopener">weblash.az ↗</a>
                         </p>
                     </article>
+                    <article class="project-card">
+                        <h3>erp-crm/</h3>
+                        <p class="project-type">full-stack · business software</p>
+                        <p>ERP and CRM modules for resource planning and customer relations workflows.</p>
+                        <ul class="tag-list">
+                            <li class="tag">React</li>
+                            <li class="tag">TypeScript</li>
+                            <li class="tag">Node.js</li>
+                            <li class="tag">Express.js</li>
+                            <li class="tag">MongoDB</li>
+                        </ul>
+                        <p class="project-links muted">private · internal systems</p>
+                    </article>
+                    <article class="project-card">
+                        <h3>dont-say-it/</h3>
+                        <p class="project-type">mobile · android game</p>
+                        <p>"Don't Say It!", a Taboo-style word game for phones, published on Google Play.</p>
+                        <ul class="tag-list">
+                            <li class="tag">React Native</li>
+                            <li class="tag">Expo</li>
+                        </ul>
+                        <!-- TODO: link to the Google Play listing -->
+                        <p class="project-links muted">google play</p>
+                    </article>
+                    <article class="project-card">
+                        <h3>quran/</h3>
+                        <p class="project-type">frontend · web app</p>
+                        <p>Website for reading and listening to the Quran online.</p>
+                        <ul class="tag-list">
+                            <li class="tag">React</li>
+                            <li class="tag">TypeScript</li>
+                            <li class="tag">Tailwind CSS</li>
+                            <li class="tag">REST APIs</li>
+                        </ul>
+                        <p class="project-links">
+                            <a href="https://quran.com.az" target="_blank" rel="noopener">quran.com.az ↗</a>
+                        </p>
+                    </article>
+                    <article class="project-card">
+                        <h3>rigforce/</h3>
+                        <p class="project-type">frontend · company website</p>
+                        <p>Responsive, scalable business website that strengthens the company's online presence.</p>
+                        <ul class="tag-list">
+                            <li class="tag">React</li>
+                            <li class="tag">TypeScript</li>
+                            <li class="tag">Tailwind CSS</li>
+                            <li class="tag">REST APIs</li>
+                        </ul>
+                        <p class="project-links">
+                            <a href="https://rigforce.az" target="_blank" rel="noopener">rigforce.az ↗</a>
+                        </p>
+                    </article>
+                    <article class="project-card">
+                        <h3>signoracucina/</h3>
+                        <p class="project-type">frontend · client website</p>
+                        <p>Responsive business website built to improve the client's digital presence.</p>
+                        <ul class="tag-list">
+                            <li class="tag">React</li>
+                            <li class="tag">TypeScript</li>
+                            <li class="tag">Tailwind CSS</li>
+                            <li class="tag">REST APIs</li>
+                        </ul>
+                        <p class="project-links">
+                            <a href="https://signoracucina.az" target="_blank" rel="noopener">signoracucina.az ↗</a>
+                        </p>
+                    </article>
+                    <div class="project-card project-more">
+                        <p class="muted"># more code on</p>
+                        <p><a href="https://github.com/nsbahmedov" target="_blank" rel="noopener">github.com/nsbahmedov ↗</a></p>
+                    </div>
                 </div>
-                <p class="muted">
-                    # more on <a href="https://github.com/nsbahmedov" target="_blank" rel="noopener">github.com/nsbahmedov ↗</a>
-                </p>
             </div>
         </section>
 
@@ -148,15 +210,32 @@
             <div class="out prose">
                 <h2><span class="md-mark">#</span> About</h2>
                 <p>
-                    Hi! I'm Nasib, a self-taught web developer who loves coding and learns something new
-                    every day.
+                    Hi! I'm Nasib, a motivated and curious developer who enjoys solving problems and
+                    building things that make life easier for people.
                 </p>
                 <p>
-                    I specialize in the MERN stack (MongoDB, Express, React, Node.js) and build modern,
-                    scalable web applications with a strong focus on performance, clean architecture
-                    and user experience. From dynamic frontends to robust backend systems, I enjoy turning
-                    ideas into working products, and I'm always eager to take on challenges that help me grow.
+                    I work across the stack: TypeScript, React, Next.js and React Native on the front end,
+                    Node.js and Express with MongoDB or SQL databases on the back end. I've built company
+                    websites, a full-stack translation platform, ERP and CRM modules, and a mobile word game.
                 </p>
+                <p>
+                    I thrive in challenging environments where I can learn, grow and contribute real value.
+                    For me it's not just about writing code, but about improving experiences and helping the
+                    team move forward.
+                </p>
+
+                <h3><span class="md-mark">##</span> Education</h3>
+                <ul class="md-list education">
+                    <li><strong>MBA</strong>, Azerbaijan State University of Economics (UNEC) <span class="muted">· 2020 – 2022</span></li>
+                    <li><strong>Bachelor's, Public Administration</strong>, Baku Engineering University (BEU) <span class="muted">· 2015 – 2020</span></li>
+                </ul>
+
+                <h3><span class="md-mark">##</span> Languages</h3>
+                <ul class="md-list languages">
+                    <li><strong>Azerbaijani</strong>, native</li>
+                    <li><strong>English</strong>, fluent (professional)</li>
+                    <li><strong>Russian</strong>, pre-intermediate</li>
+                </ul>
             </div>
         </section>
 
@@ -166,14 +245,18 @@
             <div class="out">
                 <h2 class="sr-only">Skills</h2>
                 <p class="muted" id="skills-hint" hidden>// click a skill to see the projects that use it</p>
-<pre class="json">{
-  <span class="json-key">"frontend"</span>: [<span class="skill">HTML5</span>, <span class="skill">CSS3</span>, <span class="skill">Bootstrap</span>, <span class="skill">JavaScript</span>, <span class="skill">jQuery</span>,
-               <span class="skill">React.js</span>, <span class="skill">Next.js</span>, <span class="skill">Redux / Redux Toolkit</span>],
-  <span class="json-key">"backend"</span>:  [<span class="skill">Node.js</span>, <span class="skill">Express.js</span>, <span class="skill">MongoDB</span>, <span class="skill">Socket.io</span>],
-  <span class="json-key">"tools"</span>:    [<span class="skill">Git (GitHub, GitLab)</span>, <span class="skill">CI/CD</span>, <span class="skill">API documentation</span>],
-  <span class="json-key">"languages"</span>: [<span class="json-string">"English (fluent)"</span>],
-  <span class="json-key">"learning"</span>: <span class="json-bool">true</span>
-}</pre>
+<pre class="json"><span class="jl">{</span>
+  <span class="jl jl-in"><span class="json-key">"frontend"</span>:  [<span class="skill">HTML5</span>, <span class="skill">CSS3</span>, <span class="skill">SASS</span>, <span class="skill">JavaScript</span>, <span class="skill">TypeScript</span>,
+                <span class="skill">React.js</span>, <span class="skill">Next.js</span>, <span class="skill">Redux Toolkit</span>, <span class="skill">Zustand</span>,
+                <span class="skill">TanStack Query</span>, <span class="skill">Zod</span>, <span class="skill">Tailwind CSS</span>,
+                <span class="skill">Ant Design</span>, <span class="skill">Material UI</span>],</span>
+  <span class="jl jl-in"><span class="json-key">"mobile"</span>:    [<span class="skill">React Native</span>, <span class="skill">Expo</span>],</span>
+  <span class="jl jl-in"><span class="json-key">"backend"</span>:   [<span class="skill">Node.js</span>, <span class="skill">Express.js</span>, <span class="skill">JWT</span>, <span class="skill">Mongoose</span>, <span class="skill">Prisma</span>, <span class="skill">Sequelize</span>],</span>
+  <span class="jl jl-in"><span class="json-key">"databases"</span>: [<span class="skill">MongoDB</span>, <span class="skill">MySQL</span>, <span class="skill">PostgreSQL</span>],</span>
+  <span class="jl jl-in"><span class="json-key">"apis"</span>:      [<span class="skill">REST APIs</span>, <span class="skill">Swagger / OpenAPI</span>, <span class="skill">Postman</span>],</span>
+  <span class="jl jl-in"><span class="json-key">"tools"</span>:     [<span class="skill">Git (GitHub, GitLab)</span>, <span class="skill">CI/CD</span>, <span class="skill">Figma</span>],</span>
+  <span class="jl jl-in"><span class="json-key">"learning"</span>:  <span class="json-bool">true</span></span>
+<span class="jl">}</span></pre>
             </div>
         </section>
 
@@ -194,7 +277,7 @@
                     <dt>location</dt>
                     <dd><a href="https://maps.app.goo.gl/haPpwmqMVVKPBbVJ8" target="_blank" rel="noopener">Baku, Azerbaijan ↗</a></dd>
                     <dt>resume</dt>
-                    <dd><a id="cv-link" href="https://drive.google.com/file/d/10ytBP57ZdeeG0rBaPkm5hifTkajpP7bI/view?usp=sharing" target="_blank" rel="noopener">resume.pdf ↗</a></dd>
+                    <dd><a id="cv-link" href="https://drive.google.com/file/d/1PnJmAqIwhkC_HbkK-8k_IHeqV6cpVeo6/view?usp=sharing" target="_blank" rel="noopener">resume.pdf ↗</a></dd>
                 </dl>
                 <p class="ok">✔ Open to collaboration and new opportunities.</p>
             </div>
@@ -218,7 +301,7 @@
     </main>
 
     <footer class="screen footer muted">
-        <p># © <span id="year">2026</span> Nasib Ahmadov · hand-written HTML, CSS &amp; JavaScript</p>
+        <p># © <span id="year">2026</span> Nasib Ahmadov · developed with <svg class="heart" viewBox="0 0 24 24" role="img" aria-label="love"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.8 4.5 6.6 4.1c2.2-.2 4 .9 5.4 2.8 1.4-1.9 3.2-3 5.4-2.8 3.8.4 5.7 4.3 4.2 7.6C19.5 16.4 12 21 12 21z"/></svg></p>
     </footer>
 
     <!-- ! script files -->

@@ -103,7 +103,7 @@
   var projectsSection = document.getElementById('projects');
   var filterStatus = document.getElementById('project-filter');
   var skills = document.querySelectorAll('#skills .skill');
-  var cards = document.querySelectorAll('#projects .project-card');
+  var cards = document.querySelectorAll('#projects .project-card:not(.project-more)');
 
   if (!projectsSection || !filterStatus || !skills.length) {
     return;

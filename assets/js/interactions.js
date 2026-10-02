@@ -60,20 +60,45 @@
     }
   }
 
-  // ! title bar: highlight the current section and show its path
-  // The current section is the last one whose top has scrolled past 40% of the screen.
+  // ! title bar + sidebar: highlight the current section and show its path
+  // The current section is the one whose top most recently scrolled past 40% of the
+  // screen. Works in both layouts: in the simple view the intro is a sticky sidebar
+  // and the shell is hidden, so both are skipped.
   var title = document.getElementById('titlebar-title');
-  var tabs = document.querySelectorAll('.titlebar-tabs a');
+  var tabs = document.querySelectorAll('.titlebar-tabs a, .side-nav a');
   var currentId = null;
 
   function updateCurrentSection() {
-    var current = blocks[0];
+    var simple = document.documentElement.getAttribute('data-view') === 'simple';
+    var threshold = window.innerHeight * 0.4;
     var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    var current = null;
+    var currentTop = -Infinity;
+    var topmost = null;
+    var lowest = null;
+
     for (var i = 0; i < blocks.length; i++) {
-      if (atBottom || blocks[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
-        current = blocks[i];
+      var block = blocks[i];
+      if ((simple && block.id === 'home') || !block.getClientRects().length) {
+        continue;
+      }
+      var top = block.getBoundingClientRect().top;
+      if (!topmost || top < topmost.getBoundingClientRect().top) {
+        topmost = block;
+      }
+      if (!lowest || top > lowest.getBoundingClientRect().top) {
+        lowest = block;
+      }
+      if (top <= threshold && top > currentTop) {
+        current = block;
+        currentTop = top;
       }
     }
+    if (atBottom && lowest) {
+      current = lowest;
+    }
+    current = current || topmost;
+
     if (!current || current.id === currentId) {
       return;
     }
@@ -85,6 +110,16 @@
       tabs[t].classList.toggle('is-active', tabs[t].getAttribute('href') === '#' + currentId);
     }
   }
+
+  // Used by view.js to keep the visitor on the same section when switching layouts.
+  window.siteCurrentSection = function () {
+    return currentId;
+  };
+
+  document.addEventListener('viewchange', function () {
+    currentId = null;
+    updateCurrentSection();
+  });
 
   var spyQueued = false;
   window.addEventListener('scroll', function () {
@@ -119,6 +154,29 @@
   }
 
   var activeButton = null;
+  var lastFilter = null;
+
+  // The filter message reads like a grep in the terminal view and like plain text in the simple view.
+  function describeFilter() {
+    if (!lastFilter) {
+      return;
+    }
+    var label = lastFilter.label;
+    var matches = lastFilter.matches;
+    var simple = document.documentElement.getAttribute('data-view') === 'simple';
+    var text;
+    if (simple) {
+      text = matches
+        ? 'Showing ' + matches + (matches === 1 ? ' project' : ' projects') + ' built with ' + label
+        : 'No project here uses ' + label + ' yet. More on GitHub.';
+    } else {
+      text = '$ grep -l "' + label + '" ~/projects/*  → ' +
+        (matches ? matches + (matches === 1 ? ' match' : ' matches') : 'no matches yet, see GitHub');
+    }
+    filterStatus.querySelector('.project-filter-text').textContent = text;
+  }
+
+  document.addEventListener('viewchange', describeFilter);
 
   function clearFilter() {
     if (activeButton) {
@@ -155,14 +213,12 @@
       }
     }
 
-    var text = filterStatus.querySelector('.project-filter-text');
-    if (matches) {
-      text.textContent = '$ grep -l "' + label + '" ~/projects/*  → ' + matches + (matches === 1 ? ' match' : ' matches');
-    } else {
+    lastFilter = { label: label, matches: matches };
+    describeFilter();
+    if (!matches) {
       for (var k = 0; k < cards.length; k++) {
         cards[k].classList.remove('is-dimmed');
       }
-      text.textContent = '$ grep -l "' + label + '" ~/projects/*  → no matches yet, see GitHub';
     }
     filterStatus.hidden = false;
 

@@ -26,6 +26,7 @@
     <link rel="preload" href="assets/fonts/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/view.js"></script>
 
     <!-- ! animate commands only when they can be animated; otherwise everything is shown at once -->
     <script>
@@ -49,6 +50,10 @@
             <a href="#contact">contact</a>
             <a href="#shell" class="tab-shell">&gt;_ shell</a>
         </nav>
+        <div class="view-switch" role="group" aria-label="Layout" hidden>
+            <button type="button" data-view-btn="terminal" aria-pressed="true" title="Terminal view"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span class="view-label">terminal</span></button>
+            <button type="button" data-view-btn="simple" aria-pressed="false" title="Simple view"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg><span class="view-label">simple</span></button>
+        </div>
         <button type="button" class="theme-toggle" hidden>
             <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -66,18 +71,48 @@
             <div class="out">
                 <div class="banner" aria-hidden="true"></div>
                 <h1 class="hero-title">
-                    <span class="sr-only">Nasib Ahmadov, </span><span class="hero-role" data-text="Full Stack Developer">Full Stack Developer</span>
+                    <span class="hero-name">Nasib Ahmadov<span class="sr-only">, </span></span>
+                    <span class="hero-role" data-text="Full Stack Developer">Full Stack Developer</span>
                 </h1>
-                <p class="hero-meta"><span class="muted">stack:</span> TypeScript · React · Next.js · Node.js &nbsp;<span class="muted">location:</span> Baku, Azerbaijan &nbsp;<span class="muted">status:</span> <span class="status-dot"></span>open to work</p>
+                <p class="hero-meta">
+                    <span class="meta-item meta-stack"><span class="muted">stack:</span> TypeScript · React · Next.js · Node.js</span>
+                    <span class="meta-item"><span class="muted meta-label">location:</span> Baku, Azerbaijan</span>
+                    <span class="meta-item"><span class="muted meta-label">status:</span> <span class="status-dot"></span>open to work</span>
+                </p>
                 <p class="hero-text">
                     I build web and mobile apps end to end, from React, Next.js and React Native
                     frontends to Node.js APIs, with a focus on making things easier for the people who use them.
+                </p>
+                <p class="view-hint" hidden>
+                    <span class="muted"># prefer a classic layout?</span>
+                    <button type="button" class="view-hint-btn" data-view-btn="simple">→ switch to simple view</button>
                 </p>
                 <p class="actions">
                     <a class="term-btn" href="#projects">[ view projects ]</a>
                     <a class="term-btn" href="#contact">[ contact me ]</a>
                     <a class="term-btn" href="#shell">[ open shell ]</a>
                 </p>
+
+                <!-- simple view only: sidebar navigation, CV and social links -->
+                <nav class="side-nav" aria-label="Sections">
+                    <a href="#about"><span class="side-line"></span>About</a>
+                    <a href="#projects"><span class="side-line"></span>Projects</a>
+                    <a href="#skills"><span class="side-line"></span>Skills</a>
+                    <a href="#contact"><span class="side-line"></span>Contact</a>
+                </nav>
+                <div class="side-links">
+                    <a class="cv-btn" href="https://drive.google.com/file/d/1PnJmAqIwhkC_HbkK-8k_IHeqV6cpVeo6/view?usp=sharing" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download CV
+                    </a>
+                    <!-- icons: Feather (MIT) -->
+                    <ul class="socials">
+                        <li><a href="https://github.com/nsbahmedov" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a></li>
+                        <li><a href="https://linkedin.com/in/nasib-ahmadov-web" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
+                        <li><a href="https://instagram.com/ahmadovnasib" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></li>
+                        <li><a href="mailto:nsbahmedov@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a></li>
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -85,10 +120,10 @@
         <section class="block" id="projects" data-path="~/projects">
             <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">ls ~/projects</span></p>
             <div class="out">
-                <h2 class="sr-only">Projects</h2>
+                <h2 class="sr-only section-title">Projects</h2>
                 <div class="project-filter" id="project-filter" role="status" hidden>
                     <span class="project-filter-text"></span>
-                    <button type="button" class="project-filter-clear">[ show all ]</button>
+                    <button type="button" class="project-filter-clear"><span class="t-only">[ show all ]</span><span class="s-only">Show all</span></button>
                 </div>
                 <!--
                     Each card: folder name, type, one sentence, stack tags, links.
@@ -99,7 +134,7 @@
                 -->
                 <div class="project-grid">
                     <article class="project-card">
-                        <h3>dont-say-it/</h3>
+                        <h3><span class="t-only">dont-say-it/</span><span class="s-only">Don't Say It!</span></h3>
                         <p class="project-type">mobile · android game</p>
                         <p>"Don't Say It!", a Taboo-style word game for phones, published on Google Play.</p>
                         <ul class="tag-list">
@@ -111,7 +146,7 @@
                         </p>
                     </article>
                     <article class="project-card">
-                        <h3>dilmanc/</h3>
+                        <h3><span class="t-only">dilmanc/</span><span class="s-only">Dilmanc</span></h3>
                         <p class="project-type">full-stack · client website</p>
                         <p>Website for a document translation company, with a modern UI and its own backend.</p>
                         <ul class="tag-list">
@@ -127,7 +162,7 @@
                         </p>
                     </article>
                     <article class="project-card">
-                        <h3>weblash/</h3>
+                        <h3><span class="t-only">weblash/</span><span class="s-only">Weblash</span></h3>
                         <p class="project-type">full-stack · company website</p>
                         <p>Company website with a modern UI and a Node.js backend behind it.</p>
                         <ul class="tag-list">
@@ -143,7 +178,7 @@
                         </p>
                     </article>
                     <article class="project-card">
-                        <h3>erp-crm/</h3>
+                        <h3><span class="t-only">erp-crm/</span><span class="s-only">ERP &amp; CRM Systems</span></h3>
                         <p class="project-type">full-stack · business software</p>
                         <p>ERP and CRM modules for resource planning and customer relations workflows.</p>
                         <ul class="tag-list">
@@ -156,7 +191,7 @@
                         <p class="project-links muted">private · internal systems</p>
                     </article>
                     <article class="project-card">
-                        <h3>quran/</h3>
+                        <h3><span class="t-only">quran/</span><span class="s-only">Quran Online</span></h3>
                         <p class="project-type">frontend · web app</p>
                         <p>Website for reading and listening to the Quran online.</p>
                         <ul class="tag-list">
@@ -170,7 +205,7 @@
                         </p>
                     </article>
                     <article class="project-card">
-                        <h3>rigforce/</h3>
+                        <h3><span class="t-only">rigforce/</span><span class="s-only">Rigforce LLC</span></h3>
                         <p class="project-type">frontend · company website</p>
                         <p>Responsive, scalable business website that strengthens the company's online presence.</p>
                         <ul class="tag-list">
@@ -184,7 +219,7 @@
                         </p>
                     </article>
                     <article class="project-card">
-                        <h3>signoracucina/</h3>
+                        <h3><span class="t-only">signoracucina/</span><span class="s-only">Signoracucina</span></h3>
                         <p class="project-type">frontend · client website</p>
                         <p>Responsive business website built to improve the client's digital presence.</p>
                         <ul class="tag-list">
@@ -198,7 +233,7 @@
                         </p>
                     </article>
                     <div class="project-card project-more">
-                        <p class="muted"># more code on</p>
+                        <p class="muted"><span class="t-only"># </span>more code on</p>
                         <p><a href="https://github.com/nsbahmedov" target="_blank" rel="noopener">github.com/nsbahmedov ↗</a></p>
                     </div>
                 </div>
@@ -209,7 +244,7 @@
         <section class="block" id="about" data-path="~/about">
             <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">cat about.md</span></p>
             <div class="out prose">
-                <h2><span class="md-mark">#</span> About</h2>
+                <h2 class="section-title"><span class="md-mark"># </span>About</h2>
                 <p>
                     Hi! I'm Nasib, a motivated and curious developer who enjoys solving problems and
                     building things that make life easier for people.
@@ -225,13 +260,13 @@
                     team move forward.
                 </p>
 
-                <h3><span class="md-mark">##</span> Education</h3>
+                <h3><span class="md-mark">## </span>Education</h3>
                 <ul class="md-list education">
                     <li><strong>MBA</strong>, Azerbaijan State University of Economics (UNEC) <span class="muted">· 2020 – 2022</span></li>
                     <li><strong>Bachelor's, Public Administration</strong>, Baku Engineering University (BEU) <span class="muted">· 2015 – 2020</span></li>
                 </ul>
 
-                <h3><span class="md-mark">##</span> Languages</h3>
+                <h3><span class="md-mark">## </span>Languages</h3>
                 <ul class="md-list languages">
                     <li><strong>Azerbaijani</strong>, native</li>
                     <li><strong>English</strong>, fluent (professional)</li>
@@ -244,19 +279,19 @@
         <section class="block" id="skills" data-path="~/skills">
             <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">cat skills.json</span></p>
             <div class="out">
-                <h2 class="sr-only">Skills</h2>
-                <p class="muted" id="skills-hint" hidden>// click a skill to see the projects that use it</p>
+                <h2 class="sr-only section-title">Skills</h2>
+                <p class="muted" id="skills-hint" hidden><span class="t-only">// </span>click a skill to see the projects that use it</p>
 <pre class="json"><span class="jl">{</span>
-  <span class="jl jl-in"><span class="json-key">"frontend"</span>:  [<span class="skill">HTML5</span>, <span class="skill">CSS3</span>, <span class="skill">SASS</span>, <span class="skill">JavaScript</span>, <span class="skill">TypeScript</span>,
+  <span class="jl jl-in"><span class="json-key" data-label="Frontend">"frontend"</span>:  [<span class="skill">HTML5</span>, <span class="skill">CSS3</span>, <span class="skill">SASS</span>, <span class="skill">JavaScript</span>, <span class="skill">TypeScript</span>,
                 <span class="skill">React.js</span>, <span class="skill">Next.js</span>, <span class="skill">Redux Toolkit</span>, <span class="skill">Zustand</span>,
                 <span class="skill">TanStack Query</span>, <span class="skill">Zod</span>, <span class="skill">Tailwind CSS</span>,
                 <span class="skill">Ant Design</span>, <span class="skill">Material UI</span>],</span>
-  <span class="jl jl-in"><span class="json-key">"mobile"</span>:    [<span class="skill">React Native</span>, <span class="skill">Expo</span>],</span>
-  <span class="jl jl-in"><span class="json-key">"backend"</span>:   [<span class="skill">Node.js</span>, <span class="skill">Express.js</span>, <span class="skill">JWT</span>, <span class="skill">Mongoose</span>, <span class="skill">Prisma</span>, <span class="skill">Sequelize</span>],</span>
-  <span class="jl jl-in"><span class="json-key">"databases"</span>: [<span class="skill">MongoDB</span>, <span class="skill">MySQL</span>, <span class="skill">PostgreSQL</span>],</span>
-  <span class="jl jl-in"><span class="json-key">"apis"</span>:      [<span class="skill">REST APIs</span>, <span class="skill">Swagger / OpenAPI</span>, <span class="skill">Postman</span>],</span>
-  <span class="jl jl-in"><span class="json-key">"tools"</span>:     [<span class="skill">Git (GitHub, GitLab)</span>, <span class="skill">CI/CD</span>, <span class="skill">Figma</span>],</span>
-  <span class="jl jl-in"><span class="json-key">"learning"</span>:  <span class="json-bool">true</span></span>
+  <span class="jl jl-in"><span class="json-key" data-label="Mobile">"mobile"</span>:    [<span class="skill">React Native</span>, <span class="skill">Expo</span>],</span>
+  <span class="jl jl-in"><span class="json-key" data-label="Backend">"backend"</span>:   [<span class="skill">Node.js</span>, <span class="skill">Express.js</span>, <span class="skill">JWT</span>, <span class="skill">Mongoose</span>, <span class="skill">Prisma</span>, <span class="skill">Sequelize</span>],</span>
+  <span class="jl jl-in"><span class="json-key" data-label="Databases">"databases"</span>: [<span class="skill">MongoDB</span>, <span class="skill">MySQL</span>, <span class="skill">PostgreSQL</span>],</span>
+  <span class="jl jl-in"><span class="json-key" data-label="APIs">"apis"</span>:      [<span class="skill">REST APIs</span>, <span class="skill">Swagger / OpenAPI</span>, <span class="skill">Postman</span>],</span>
+  <span class="jl jl-in"><span class="json-key" data-label="Tools">"tools"</span>:     [<span class="skill">Git (GitHub, GitLab)</span>, <span class="skill">CI/CD</span>, <span class="skill">Figma</span>],</span>
+  <span class="jl jl-in jl-learning"><span class="json-key">"learning"</span>:  <span class="json-bool">true</span></span>
 <span class="jl">}</span></pre>
             </div>
         </section>
@@ -265,13 +300,13 @@
         <section class="block" id="contact" data-path="~/contact">
             <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">contact --all</span></p>
             <div class="out">
-                <h2 class="sr-only">Contact</h2>
+                <h2 class="sr-only section-title">Contact</h2>
                 <dl class="contact-list">
                     <dt>email</dt>
                     <dd><a href="mailto:nsbahmedov@gmail.com">nsbahmedov@gmail.com</a></dd>
-                    <dt>github</dt>
+                    <dt><span class="t-only">github</span><span class="s-only">GitHub</span></dt>
                     <dd><a href="https://github.com/nsbahmedov" target="_blank" rel="noopener">github.com/nsbahmedov ↗</a></dd>
-                    <dt>linkedin</dt>
+                    <dt><span class="t-only">linkedin</span><span class="s-only">LinkedIn</span></dt>
                     <dd><a href="https://linkedin.com/in/nasib-ahmadov-web" target="_blank" rel="noopener">linkedin.com/in/nasib-ahmadov-web ↗</a></dd>
                     <dt>instagram</dt>
                     <dd><a href="https://instagram.com/ahmadovnasib" target="_blank" rel="noopener">instagram.com/ahmadovnasib ↗</a></dd>
@@ -302,7 +337,7 @@
     </main>
 
     <footer class="screen footer muted">
-        <p># © <span id="year">2026</span> Nasib Ahmadov · developed with <svg class="heart" viewBox="0 0 24 24" role="img" aria-label="love"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.8 4.5 6.6 4.1c2.2-.2 4 .9 5.4 2.8 1.4-1.9 3.2-3 5.4-2.8 3.8.4 5.7 4.3 4.2 7.6C19.5 16.4 12 21 12 21z"/></svg></p>
+        <p><span class="t-only"># </span>© <span id="year">2026</span> Nasib Ahmadov · developed with <svg class="heart" viewBox="0 0 24 24" role="img" aria-label="love"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.8 4.5 6.6 4.1c2.2-.2 4 .9 5.4 2.8 1.4-1.9 3.2-3 5.4-2.8 3.8.4 5.7 4.3 4.2 7.6C19.5 16.4 12 21 12 21z"/></svg></p>
     </footer>
 
     <!-- ! script files -->

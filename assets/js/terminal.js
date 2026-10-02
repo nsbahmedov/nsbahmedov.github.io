@@ -135,10 +135,23 @@
         }
       }
     },
+    education: {
+      desc: 'degrees and languages',
+      run: function () {
+        line({ em: 'education' });
+        [].forEach.call(document.querySelectorAll('#about .education li'), function (li) {
+          line('  - ' + cleanText(li));
+        });
+        line({ em: 'languages' });
+        [].forEach.call(document.querySelectorAll('#about .languages li'), function (li) {
+          line('  - ' + cleanText(li));
+        });
+      }
+    },
     projects: {
       desc: 'things I have built',
       run: function () {
-        var cards = document.querySelectorAll('#projects .project-card');
+        var cards = document.querySelectorAll('#projects .project-card:not(.project-more)');
         if (!cards.length) {
           line('Projects are on their way. Meanwhile: ', { text: 'github.com/nsbahmedov', href: LINKS.github });
           return;
@@ -151,15 +164,25 @@
             parts.push({ muted: '  [' + tags + ']' });
           }
           line(parts);
-          line('   ' + cleanText(card.querySelector('p')));
-          var linkParts = ['   '];
-          [].forEach.call(card.querySelectorAll('.project-links a'), function (a, index) {
-            if (index) {
-              linkParts.push('  ');
-            }
-            linkParts.push({ text: cleanText(a), href: a.href });
-          });
-          line(linkParts);
+          var type = card.querySelector('.project-type');
+          if (type) {
+            line({ muted: '   ' + cleanText(type) });
+          }
+          line('   ' + cleanText(card.querySelector('p:not(.project-type)')));
+          var links = card.querySelectorAll('.project-links a');
+          if (links.length) {
+            var linkParts = ['   '];
+            [].forEach.call(links, function (a, index) {
+              if (index) {
+                linkParts.push('  ');
+              }
+              linkParts.push({ text: cleanText(a), href: a.href });
+            });
+            line(linkParts);
+          } else if (card.querySelector('.project-links')) {
+            // no public link (private or not yet listed): show the note instead
+            line({ muted: '   ' + cleanText(card.querySelector('.project-links')) });
+          }
         }
         blank();
         line(['More on ', { text: 'GitHub', href: LINKS.github }, '. Type ', { cmd: 'cd projects' }, ' to see them on the page.']);
@@ -216,6 +239,21 @@
         } else {
           line('cd: no such section: ' + target + ' (try "ls")', 'term-error');
         }
+      }
+    },
+    theme: {
+      desc: 'switch theme: theme light | dark',
+      run: function (args) {
+        if (!window.siteTheme) {
+          line('theme: not available', 'term-error');
+          return;
+        }
+        var wanted = (args[0] || 'toggle').toLowerCase();
+        if (['light', 'dark', 'toggle'].indexOf(wanted) === -1) {
+          line('usage: theme light | dark', 'term-error');
+          return;
+        }
+        line(['Theme set to ', { em: window.siteTheme.set(wanted) }, '.']);
       }
     },
     play: {
@@ -407,6 +445,8 @@
       options = SECTIONS;
     } else if (words[0] === 'open') {
       options = Object.keys(LINKS);
+    } else if (words[0] === 'theme') {
+      options = ['light', 'dark'];
     } else {
       return;
     }

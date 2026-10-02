@@ -31,7 +31,55 @@
     --bool: #d19a66;
     --error: #ff7b72;
     --gold: #ffd166;
+    --on-accent: #000000;
+    --accent-soft: rgba(66, 220, 163, 0.08);
+    --accent-glow: rgba(66, 220, 163, 0.25);
+    --string-dim: rgba(229, 192, 123, 0.35);
+    --glow: rgba(66, 220, 163, 0.07);
+    --scanline: rgba(255, 255, 255, 0.018);
+    --bar-glass: rgba(22, 27, 24, 0.92);
+    --hover: rgba(255, 255, 255, 0.06);
+    --placeholder: #4b5a52;
+    --shadow: rgba(0, 0, 0, 0.6);
+    --grid: rgba(66, 220, 163, 0.06);
+    --overlay: rgba(0, 0, 0, 0.75);
+    --banner-from: #42dca3;
+    --banner-to: #3bc4d8;
     --mono: "JetBrains Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    color-scheme: dark;
+}
+
+/* light theme: same layout and syntax colours, darker inks for contrast on paper */
+:root[data-theme="light"] {
+    --bg: #f6f7f3;
+    --bg-raised: #ffffff;
+    --bar: #e9ece6;
+    --line: rgba(0, 0, 0, 0.12);
+    --text: #2b3631;
+    --bright: #0d1310;
+    --muted: #5f6d66;
+    --accent: #0b7a52;
+    --accent-dim: rgba(11, 122, 82, 0.35);
+    --string: #8a5a00;
+    --key: #0550ae;
+    --bool: #b0420d;
+    --error: #cf222e;
+    --gold: #b88200;
+    --on-accent: #ffffff;
+    --accent-soft: rgba(11, 122, 82, 0.07);
+    --accent-glow: rgba(11, 122, 82, 0.18);
+    --string-dim: rgba(138, 90, 0, 0.35);
+    --glow: rgba(11, 122, 82, 0.06);
+    --scanline: rgba(0, 0, 0, 0.02);
+    --bar-glass: rgba(233, 236, 230, 0.92);
+    --hover: rgba(0, 0, 0, 0.06);
+    --placeholder: #9aa59f;
+    --shadow: rgba(0, 0, 0, 0.15);
+    --grid: rgba(11, 122, 82, 0.08);
+    --overlay: rgba(246, 247, 243, 0.85);
+    --banner-from: #0b7a52;
+    --banner-to: #0e7490;
+    color-scheme: light;
 }
 
 *,
@@ -62,7 +110,7 @@ body {
     line-height: 1.7;
     color: var(--text);
     background-color: var(--bg);
-    background-image: radial-gradient(ellipse at top, rgba(66, 220, 163, 0.07), transparent 60%);
+    background-image: radial-gradient(ellipse at top, var(--glow), transparent 60%);
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
 }
@@ -74,11 +122,11 @@ body::after {
     inset: 0;
     z-index: 2000;
     pointer-events: none;
-    background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px);
+    background: repeating-linear-gradient(to bottom, var(--scanline) 0 1px, transparent 1px 3px);
 }
 
 ::selection {
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
 }
 
@@ -144,7 +192,7 @@ pre {
     left: 16px;
     z-index: 1200;
     padding: 4px 10px;
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
 }
 
@@ -162,7 +210,7 @@ pre {
     gap: 16px;
     height: 44px;
     padding: 0 16px;
-    background: rgba(22, 27, 24, 0.92);
+    background: var(--bar-glass);
     border-bottom: 1px solid var(--line);
     backdrop-filter: blur(6px);
 }
@@ -212,11 +260,11 @@ pre {
 
 .titlebar-tabs a:hover {
     color: var(--bright);
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--hover);
 }
 
 .titlebar-tabs a.is-active {
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
 }
 
@@ -244,9 +292,92 @@ pre {
         display: none;
     }
 
+    /* fade the right edge so it's clear the tabs scroll */
+    .titlebar-tabs {
+        -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
+        mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
+        padding-right: 20px;
+    }
+
     .titlebar-tabs a {
         flex-shrink: 0;
         padding: 4px 8px;
+    }
+}
+
+/* ! theme toggle (in the title bar) */
+.theme-toggle {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    font: inherit;
+    font-size: 13px;
+    color: var(--text);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.theme-toggle:hover {
+    color: var(--bright);
+    border-color: var(--accent);
+}
+
+.theme-toggle svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.theme-key {
+    color: var(--muted);
+}
+
+.theme-value {
+    margin-left: 0.6ch;
+    color: var(--accent);
+}
+
+/* show the icon of the current theme */
+.theme-toggle .icon-sun,
+:root[data-theme="light"] .theme-toggle .icon-moon {
+    display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-sun {
+    display: block;
+}
+
+@media (max-width: 720px) {
+    .theme-text {
+        display: none;
+    }
+
+    .theme-toggle {
+        padding: 6px 8px;
+    }
+}
+
+/* colours fade for a moment while the theme switches */
+/* (bugs in the 404 game are excluded: this would cancel their movement) */
+.theme-switching,
+.theme-switching *:not(.bug),
+.theme-switching *::before,
+.theme-switching *::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease, stroke 0.3s ease !important;
+}
+
+@media (max-width: 480px) {
+    .titlebar-dots {
+        display: none;
     }
 }
 
@@ -329,17 +460,57 @@ pre {
 }
 
 /* ! hero */
+/* the SVG is used as a mask over a themed gradient, so the banner recolours with the theme;
+   the glow sits on the wrapper because a filter on the masked layer itself would be cut off */
 .banner {
+    position: relative;
     display: block;
     width: min(100%, 520px);
-    height: auto;
+    aspect-ratio: 610 / 240;
     margin-bottom: 22px;
-    filter: drop-shadow(0 0 18px rgba(66, 220, 163, 0.25));
+    filter: drop-shadow(0 0 18px var(--accent-glow));
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--banner-from), var(--banner-to));
+    -webkit-mask: url("../img/banner.svg") center / contain no-repeat;
+    mask: url("../img/banner.svg") center / contain no-repeat;
 }
 
 .hero-title {
-    margin-bottom: 8px;
-    font-size: clamp(18px, 3vw, 24px);
+    margin-bottom: 14px;
+    line-height: 1.2;
+}
+
+/* same gradient as the name banner, with an offset outline copy behind it
+   standing in for the banner's box-drawing "shadow" */
+.hero-role {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    font-size: clamp(22px, 4.4vw, 36px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, var(--banner-from), var(--banner-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 14px var(--accent-glow));
+}
+
+.hero-role::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0.09em;
+    left: 0.09em;
+    width: 100%;
+    z-index: -1;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--accent-dim);
 }
 
 .hero-meta {
@@ -383,7 +554,7 @@ pre {
 
 .term-btn:hover,
 .term-btn:focus-visible {
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
 }
 
@@ -428,6 +599,25 @@ pre {
     border: 1px solid var(--line);
 }
 
+/* "more on GitHub" sits in the grid as a dashed card */
+.project-more {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: transparent;
+    border-style: dashed;
+}
+
+.project-more p {
+    margin: 0;
+}
+
+.project-type {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
 .project-links {
     display: flex;
     gap: 18px;
@@ -447,7 +637,7 @@ pre {
     padding: 0 8px;
     font-size: 13px;
     color: var(--string);
-    border: 1px solid rgba(229, 192, 123, 0.3);
+    border: 1px solid var(--string-dim);
     border-radius: 3px;
 }
 
@@ -471,7 +661,7 @@ pre {
 
 .project-filter-clear:hover,
 .project-filter-clear:focus-visible {
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
 }
 
@@ -482,17 +672,17 @@ pre {
 
 .project-card.is-match {
     border-color: var(--accent);
-    box-shadow: 0 0 24px rgba(66, 220, 163, 0.2);
+    box-shadow: 0 0 24px var(--accent-glow);
     animation: match-pulse 0.9s ease-out 0.3s;
 }
 
 @keyframes match-pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(66, 220, 163, 0.6);
+        box-shadow: 0 0 0 0 var(--accent-dim);
     }
 
     100% {
-        box-shadow: 0 0 0 14px rgba(66, 220, 163, 0);
+        box-shadow: 0 0 0 14px transparent;
     }
 }
 
@@ -503,6 +693,25 @@ pre {
 
 .prose h2 {
     margin-bottom: 14px;
+}
+
+.prose h3 {
+    margin: 26px 0 8px;
+}
+
+.md-list {
+    padding: 0;
+    margin: 0 0 1em;
+    list-style: none;
+}
+
+.md-list li::before {
+    content: "- ";
+    color: var(--accent);
+}
+
+.md-list strong {
+    color: var(--bright);
 }
 
 .md-mark {
@@ -546,22 +755,33 @@ pre {
     color: inherit;
     background: none;
     border: 0;
-    border-bottom: 1px dashed rgba(229, 192, 123, 0.45);
+    border-bottom: 1px dashed var(--string-dim);
     cursor: pointer;
 }
 
 .skill-btn:hover,
 .skill-btn:focus-visible,
 .skill-btn[aria-pressed="true"] {
-    color: #000;
+    color: var(--on-accent);
     background: var(--string);
     border-bottom-color: transparent;
     outline: none;
 }
 
+/* narrow screens: drop the desktop column alignment and let each
+   property wrap with a hanging indent */
 @media (max-width: 720px) {
     .json {
-        white-space: pre-wrap;
+        white-space: normal;
+    }
+
+    .jl {
+        display: block;
+    }
+
+    .jl-in {
+        padding-left: 4ch;
+        text-indent: -2ch;
     }
 }
 
@@ -619,7 +839,7 @@ pre {
 }
 
 .shell-input::placeholder {
-    color: #4b5a52;
+    color: var(--placeholder);
 }
 
 @media (pointer: coarse) {
@@ -662,7 +882,7 @@ pre {
     margin: 2px 0;
     font: inherit;
     color: var(--accent);
-    background: rgba(66, 220, 163, 0.08);
+    background: var(--accent-soft);
     border: 1px solid var(--accent-dim);
     border-radius: 3px;
     cursor: pointer;
@@ -670,7 +890,7 @@ pre {
 
 .term-cmd:hover,
 .term-cmd:focus-visible {
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
     outline: none;
 }
@@ -700,14 +920,14 @@ pre {
     background: var(--bg);
     border: 1px solid var(--accent);
     border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 20px var(--shadow);
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .term-launch:hover,
 .term-launch:focus-visible {
-    color: #000;
+    color: var(--on-accent);
     background: var(--accent);
     outline: none;
 }
@@ -731,6 +951,33 @@ pre {
 .footer {
     padding-bottom: 40px;
     font-size: 13px;
+}
+
+.heart {
+    width: 1.05em;
+    height: 1.05em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    fill: var(--error);
+    animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%,
+    40%,
+    100% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.18);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heart {
+        animation: none;
+    }
 }
 
 /* ! 404 bug squash game */
@@ -764,8 +1011,8 @@ pre {
     overflow: hidden;
     background-color: var(--bg-raised);
     background-image:
-        linear-gradient(rgba(66, 220, 163, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(66, 220, 163, 0.06) 1px, transparent 1px);
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
     background-size: 32px 32px;
     border: 1px solid var(--accent-dim);
     border-radius: 4px;
@@ -785,7 +1032,7 @@ pre {
     justify-content: center;
     padding: 20px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.75);
+    background: var(--overlay);
 }
 
 .bug-overlay[hidden] {
@@ -824,7 +1071,7 @@ pre {
 
 .bug-golden {
     color: var(--gold);
-    filter: drop-shadow(0 0 6px rgba(255, 209, 102, 0.7));
+    filter: drop-shadow(0 0 6px var(--gold));
 }
 
 .bug.is-squashed svg {

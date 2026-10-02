@@ -3,43 +3,49 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page not found — Nasib Ahmadov</title>
     <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0b0f0d">
     <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 
     <!-- ! absolute paths: this page is served for any missing URL, at any depth -->
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>
-    <main class="bug-page container text-center">
-        <p class="bug-code" aria-hidden="true">404</p>
-        <h1 class="bug-title">This page got eaten by bugs</h1>
+    <header class="titlebar">
+        <span class="titlebar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="titlebar-title">visitor@nasib: ~/404</span>
+        <nav class="titlebar-tabs" aria-label="Site">
+            <a href="/">~ home</a>
+        </nav>
+    </header>
+
+    <main class="screen bug-page">
+        <p class="cmd"><span class="ps1">visitor@nasib:~$</span> cd <span id="bug-path">/this-page</span></p>
+        <h1 class="term-error">bash: cd: <span id="bug-path-error">/this-page</span>: No such file or directory (404)</h1>
         <p class="bug-lead">
-            While you're here, help me debug: squash as many bugs as you can in 30 seconds.
-            Golden bugs are worth 3 points.
+            Looks like the bugs ate this page. While you're here, help me debug: squash as many
+            as you can in 30 seconds. <span class="accent">Golden bugs</span> are worth 3 points.
         </p>
 
+        <p class="cmd"><span class="ps1">visitor@nasib:~$</span> ./squash-bugs.sh</p>
         <div class="bug-hud" aria-live="polite">
-            <span>Score <strong id="bug-score">0</strong></span>
-            <span>Time <strong id="bug-time">30</strong>s</span>
-            <span>Best <strong id="bug-best">0</strong></span>
+            <span>score: <strong id="bug-score">0</strong></span>
+            <span>time: <strong id="bug-time">30</strong>s</span>
+            <span>best: <strong id="bug-best">0</strong></span>
         </div>
 
         <div class="bug-arena" id="bug-arena" tabindex="-1" aria-label="Game area">
             <div class="bug-overlay" id="bug-overlay">
                 <p id="bug-message">Ready to debug?</p>
-                <button class="btn btn-default btn-lg" id="bug-start" type="button">Start squashing</button>
+                <button class="term-btn" id="bug-start" type="button">[ start squashing ]</button>
             </div>
         </div>
 
         <p class="bug-home">
-            <a class="btn btn-default btn-lg" href="/">
-                <i class="fa fa-home fa-fw" aria-hidden="true"></i>Take me home
-            </a>
+            <a class="term-btn" href="/">[ cd ~ ] take me home</a>
         </p>
     </main>
 

@@ -15,51 +15,36 @@
   };
   var SECTIONS = ['projects', 'about', 'skills', 'contact'];
 
-  // ! build the terminal window
-  var overlay = document.createElement('div');
-  overlay.className = 'term-overlay';
-  overlay.hidden = true;
-  overlay.innerHTML =
-    '<div class="term-window" role="dialog" aria-modal="true" aria-labelledby="term-title" tabindex="-1">' +
-    '  <div class="term-bar">' +
-    '    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>' +
-    '    <span class="term-title" id="term-title">visitor@nasib: ~</span>' +
-    '    <button type="button" class="term-close" aria-label="Close terminal">&times;</button>' +
-    '  </div>' +
-    '  <div class="term-body">' +
-    '    <div class="term-output" aria-live="polite"></div>' +
-    '    <form class="term-line" autocomplete="off">' +
-    '      <label class="term-prompt" for="term-input">visitor@nasib:~$</label>' +
-    '      <input class="term-input" id="term-input" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send">' +
-    '    </form>' +
-    '  </div>' +
-    '</div>';
-  document.body.appendChild(overlay);
+  // ! the shell lives at the bottom of the page (#shell)
+  var shell = document.getElementById('shell');
+  var output = document.getElementById('shell-output');
+  var form = document.getElementById('shell-form');
+  var input = document.getElementById('shell-input');
+  if (!shell || !output || !form || !input) {
+    return;
+  }
 
-  var win = overlay.querySelector('.term-window');
-  var body = overlay.querySelector('.term-body');
-  var output = overlay.querySelector('.term-output');
-  var form = overlay.querySelector('.term-line');
-  var input = overlay.querySelector('.term-input');
-
+  // Floating ">_" button: jumps to the shell, hidden while the shell is on screen.
   var launcher = document.createElement('button');
   launcher.type = 'button';
   launcher.className = 'term-launch';
-  launcher.setAttribute('aria-label', 'Open terminal');
-  launcher.title = 'Open terminal (press `)';
+  launcher.setAttribute('aria-label', 'Jump to the interactive shell');
+  launcher.title = 'Jump to the shell (press `)';
   launcher.textContent = '>_';
   document.body.appendChild(launcher);
 
   var history = [];
   var historyIndex = 0;
   var busy = false;
-  var welcomed = false;
-  var lastFocus = null;
   var stopMatrix = null;
 
   // ! output helpers
+  // Keep the prompt on screen while output is added, but only once the visitor is using the shell.
+  var following = false;
   function scrollToBottom() {
-    body.scrollTop = body.scrollHeight;
+    if (following) {
+      form.scrollIntoView({ block: 'nearest' });
+    }
   }
 
   // parts: strings, {text, href}, {cmd, text}, {em}, {muted}
@@ -144,7 +129,7 @@
     about: {
       desc: 'who is Nasib?',
       run: function () {
-        var paragraphs = document.querySelectorAll('#about p');
+        var paragraphs = document.querySelectorAll('#about .prose p');
         for (var i = 0; i < paragraphs.length; i++) {
           line(cleanText(paragraphs[i]));
         }
@@ -183,10 +168,10 @@
     skills: {
       desc: 'my tech stack',
       run: function () {
-        var tags = document.querySelectorAll('#skills .tag-list .tag');
+        var tags = document.querySelectorAll('#skills .skill');
         line([].map.call(tags, cleanText).join('  ·  '));
         blank();
-        line({ muted: 'Tip: click a skill on the page to see the projects that use it.' });
+        line({ muted: 'Tip: click a skill in skills.json above to see the projects that use it.' });
       }
     },
     contact: {
@@ -225,11 +210,9 @@
       run: function (args) {
         var target = (args[0] || '~').replace(/\/$/, '').toLowerCase();
         if (target === '~' || target === '..' || target === '/') {
-          close();
-          window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+          scrollTo(document.body);
         } else if (SECTIONS.indexOf(target) !== -1) {
-          close();
-          document.getElementById(target).scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+          scrollTo(document.getElementById(target));
         } else {
           line('cd: no such section: ' + target + ' (try "ls")', 'term-error');
         }
@@ -248,9 +231,10 @@
       }
     },
     exit: {
-      desc: 'close the terminal',
+      desc: 'log out (back to the top)',
       run: function () {
-        close();
+        line('logout');
+        setTimeout(function () { scrollTo(document.body); }, 300);
       }
     },
 
@@ -280,9 +264,9 @@
           function () { line(['Verifying recruiter credentials... ', { em: 'OK' }]); },
           function () { line(['Checking coffee supply... ', { em: 'OK' }]); },
           function () { bar = line('Hiring Nasib... [          ] 0%'); },
-          function () { bar.textContent = 'Hiring Nasib... [████      ] 40%'; },
-          function () { bar.textContent = 'Hiring Nasib... [████████  ] 80%'; },
-          function () { bar.textContent = 'Hiring Nasib... [██████████] 100%'; },
+          function () { bar.textContent = 'Hiring Nasib... [####      ] 40%'; },
+          function () { bar.textContent = 'Hiring Nasib... [########  ] 80%'; },
+          function () { bar.textContent = 'Hiring Nasib... [##########] 100%'; },
           function () {
             blank();
             line({ em: 'Success! Great choice. 🎉' });
@@ -381,11 +365,16 @@
     command.run(words.slice(1));
   }
 
+  function scrollTo(element) {
+    following = false;
+    input.blur();
+    element.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+
+  // On touch screens a tapped command keeps focus, so the keyboard doesn't pop up.
   function focusInput(fromTap) {
-    if (touch && fromTap) {
-      win.focus();
-    } else {
-      input.focus();
+    if (!(touch && fromTap)) {
+      input.focus({ preventScroll: true });
     }
   }
 
@@ -396,16 +385,15 @@
     if (stopMatrix) {
       stopMatrix();
     }
+    following = true;
     echoCommand(text);
+    input.value = '';
+    focusInput(fromTap);
     if (text.trim()) {
       history.push(text);
       run(text);
     }
     historyIndex = history.length;
-    input.value = '';
-    if (!overlay.hidden) {
-      focusInput(fromTap);
-    }
   }
 
   // ! tab completion
@@ -441,11 +429,12 @@
     }
     var canvas = document.createElement('canvas');
     canvas.className = 'term-matrix';
-    win.appendChild(canvas);
+    canvas.title = 'Click or press any key to exit';
+    document.body.appendChild(canvas);
 
     var ratio = window.devicePixelRatio || 1;
-    var width = canvas.offsetWidth;
-    var height = canvas.offsetHeight;
+    var width = window.innerWidth;
+    var height = window.innerHeight;
     canvas.width = width * ratio;
     canvas.height = height * ratio;
     var ctx = canvas.getContext('2d');
@@ -488,37 +477,18 @@
     };
   }
 
-  // ! open / close
+  // ! jump to the shell
   function open() {
-    if (!overlay.hidden) {
-      return;
-    }
-    lastFocus = document.activeElement;
-    overlay.hidden = false;
-    document.body.classList.add('term-open');
-    if (!welcomed) {
-      welcomed = true;
-      line({ em: 'Welcome to nasibahmadov.com, terminal edition.' });
-      line('Type a command and press Enter, or tap one of these:');
-      line([{ cmd: 'help' }, ' ', { cmd: 'about' }, ' ', { cmd: 'projects' }, ' ', { cmd: 'skills' }, ' ', { cmd: 'contact' }, ' ', { cmd: 'sudo hire nasib' }]);
-      blank();
-    }
-    focusInput(true);
+    following = true;
+    shell.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'end' });
+    focusInput(touch);
   }
 
-  function close() {
-    if (overlay.hidden) {
-      return;
-    }
-    if (stopMatrix) {
-      stopMatrix();
-    }
-    overlay.hidden = true;
-    document.body.classList.remove('term-open');
-    if (lastFocus && lastFocus.focus) {
-      lastFocus.focus();
-    }
-  }
+  // ! welcome message
+  line({ em: 'Welcome to nasibahmadov.com, terminal edition.' });
+  line('Type a command and press Enter, or tap one of these:');
+  line([{ cmd: 'help' }, ' ', { cmd: 'about' }, ' ', { cmd: 'projects' }, ' ', { cmd: 'skills' }, ' ', { cmd: 'contact' }, ' ', { cmd: 'sudo hire nasib' }]);
+  blank();
 
   // ! events
   form.addEventListener('submit', function (event) {
@@ -541,51 +511,50 @@
     } else if (event.key === 'l' && event.ctrlKey) {
       event.preventDefault();
       output.textContent = '';
+    } else if (event.key === 'Escape') {
+      input.blur();
     }
   });
 
-  overlay.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-      close();
-    } else if (stopMatrix) {
+  // Clicking empty space in the shell focuses the prompt (unless the visitor is selecting text).
+  shell.addEventListener('click', function (event) {
+    if ((event.target === shell || event.target === output) && !window.getSelection().toString()) {
+      focusInput(false);
+    }
+  });
+
+  // Any key or click ends the matrix animation.
+  document.addEventListener('keydown', function () {
+    if (stopMatrix) {
       stopMatrix();
     }
-  });
-
-  // Clicking the backdrop closes; clicking empty space in the window focuses the input.
-  overlay.addEventListener('click', function (event) {
-    if (event.target === overlay) {
-      close();
-    } else if (stopMatrix) {
+  }, true);
+  document.addEventListener('click', function (event) {
+    if (stopMatrix && event.target.classList.contains('term-matrix')) {
       stopMatrix();
-    } else if (event.target === body || event.target === output) {
-      if (!window.getSelection().toString()) {
-        input.focus();
-      }
-    }
-  });
-
-  overlay.querySelector('.term-close').addEventListener('click', close);
-
-  // Keep focus inside the dialog while it is open.
-  document.addEventListener('focusin', function (event) {
-    if (!overlay.hidden && !win.contains(event.target)) {
-      focusInput(true);
     }
   });
 
   launcher.addEventListener('click', open);
 
-  var openers = document.querySelectorAll('[data-open-terminal]');
+  var openers = document.querySelectorAll('a[href="#shell"]');
   for (var i = 0; i < openers.length; i++) {
-    openers[i].hidden = false;
-    openers[i].addEventListener('click', open);
+    openers[i].addEventListener('click', function (event) {
+      event.preventDefault();
+      open();
+    });
   }
 
-  // ` or ~ opens the terminal from anywhere on the page.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      launcher.classList.toggle('is-hidden', entries[0].isIntersecting);
+    }).observe(form);
+  }
+
+  // ` or ~ jumps to the shell from anywhere on the page.
   document.addEventListener('keydown', function (event) {
     var tag = event.target.tagName;
-    if ((event.key === '`' || event.key === '~') && overlay.hidden &&
+    if ((event.key === '`' || event.key === '~') &&
       !event.ctrlKey && !event.metaKey && !event.altKey &&
       tag !== 'INPUT' && tag !== 'TEXTAREA' && !event.target.isContentEditable) {
       event.preventDefault();

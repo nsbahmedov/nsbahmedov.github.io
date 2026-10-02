@@ -4,10 +4,11 @@
 <head>
     <!-- ! required files -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nasib Ahmadov — Full Stack Developer</title>
     <meta name="description"
         content="Nasib Ahmadov is a full stack MERN developer in Baku, Azerbaijan, building fast, scalable web applications with React, Node.js and MongoDB.">
+    <meta name="theme-color" content="#0b0f0d">
     <link rel="canonical" href="https://nasibahmadov.com/">
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
@@ -22,11 +23,10 @@
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="preload" href="assets/fonts/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- ! hide scroll-reveal elements only when they can actually be revealed -->
+    <!-- ! animate commands only when they can be animated; otherwise everything is shown at once -->
     <script>
         if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.documentElement.classList.add('reveal-ready');
@@ -34,256 +34,188 @@
     </script>
 </head>
 
-<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="27">
-    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top">Nasib Ahmadov</a>
-            <button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right"
-                data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#skills">Skills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="custom-header">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Left Side: Image -->
-                <div class="col-lg-6 text-center text-lg-start mb-4">
-                    <img src="assets/img/developer.svg" alt="" class="img-fluid" />
-                </div>
-
-                <!-- Right Side: Text -->
-                <div class="col-lg-6 text-center">
-                    <h1 class="brand-heading">Full Stack Developer</h1>
-                    <hr />
-                    <p class="intro-text">
-                        I'm Nasib, a MERN developer in Baku. I design, build and deploy web applications
-                        that solve real business problems, from React frontends to Node.js APIs.
-                    </p>
-                    <button type="button" class="term-hint" data-open-terminal hidden>
-                        Prefer the command line? <span>Open the terminal</span> <kbd>`</kbd>
-                    </button>
-                    <a class="btn btn-link btn-circle custom-bounce" role="button" href="#projects"
-                        aria-label="Scroll to projects">
-                        <i class="fa fa-angle-double-down"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <!-- ! window title bar + navigation -->
+    <header class="titlebar">
+        <span class="titlebar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="titlebar-title" id="titlebar-title">visitor@nasib: ~</span>
+        <nav class="titlebar-tabs" aria-label="Sections">
+            <a href="#projects">projects</a>
+            <a href="#about">about</a>
+            <a href="#skills">skills</a>
+            <a href="#contact">contact</a>
+            <a href="#shell" class="tab-shell">&gt;_ shell</a>
+        </nav>
     </header>
 
-    <section class="content-section" id="projects">
-        <div class="container">
-            <h2 class="text-center reveal">Projects</h2>
-            <div class="project-filter" id="project-filter" role="status" hidden>
-                <span class="project-filter-text"></span>
-                <button type="button" class="project-filter-clear">Show all</button>
+    <main class="screen" id="main">
+
+        <p class="last-login muted">Last login: <span id="last-login">today</span> on ttys001</p>
+
+        <!-- ! whoami -->
+        <section class="block" id="home" data-path="~">
+            <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">whoami</span></p>
+            <div class="out">
+                <img class="banner" src="assets/img/banner.svg" alt="" width="610" height="240">
+                <h1 class="hero-title">Nasib Ahmadov <span class="accent">— Full Stack Developer</span></h1>
+                <p class="hero-meta"><span class="muted">stack:</span> MERN &nbsp;<span class="muted">location:</span> Baku, Azerbaijan &nbsp;<span class="muted">status:</span> <span class="status-dot"></span>open to work</p>
+                <p class="hero-text">
+                    I design, build and deploy web applications that solve real business problems,
+                    from React frontends to Node.js APIs.
+                </p>
+                <p class="actions">
+                    <a class="term-btn" href="#projects">[ view projects ]</a>
+                    <a class="term-btn" href="#contact">[ contact me ]</a>
+                    <a class="term-btn" href="#shell">[ open shell ]</a>
+                </p>
             </div>
-            <div class="row g-4 reveal-stagger">
-                <!--
-                    TODO: replace each placeholder card with a real project.
-                    For each one: a screenshot (put it in assets/img/projects/ and
-                    uncomment the <img>), one sentence on the problem it solves,
-                    the stack, and links to the live demo and the source code.
-                -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="project-card h-100">
+        </section>
+
+        <!-- ! projects -->
+        <section class="block" id="projects" data-path="~/projects">
+            <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">ls ~/projects</span></p>
+            <div class="out">
+                <h2 class="sr-only">Projects</h2>
+                <div class="project-filter" id="project-filter" role="status" hidden>
+                    <span class="project-filter-text"></span>
+                    <button type="button" class="project-filter-clear">[ show all ]</button>
+                </div>
+                <div class="project-grid">
+                    <!--
+                        TODO: replace each placeholder card with a real project.
+                        For each one: a screenshot (put it in assets/img/projects/ and
+                        uncomment the <img>), one sentence on the problem it solves,
+                        the stack, and links to the live demo and the source code.
+                    -->
+                    <article class="project-card">
+                        <h3>project-one/</h3>
                         <!-- <img src="assets/img/projects/project-1.png" alt="Screenshot of Project One" class="project-thumb"> -->
-                        <div class="project-body">
-                            <h3>Project One</h3>
-                            <p>One sentence on the problem this solves and who it is for.</p>
-                            <ul class="tag-list">
-                                <li class="tag">React</li>
-                                <li class="tag">Node.js</li>
-                                <li class="tag">MongoDB</li>
-                            </ul>
-                            <div class="project-links">
-                                <a href="#" target="_blank" rel="noopener"><i class="fa fa-external-link fa-fw"></i>Live demo</a>
-                                <a href="#" target="_blank" rel="noopener"><i class="fa fa-github fa-fw"></i>Code</a>
-                            </div>
-                        </div>
+                        <p>One sentence on the problem this solves and who it is for.</p>
+                        <ul class="tag-list">
+                            <li class="tag">React</li>
+                            <li class="tag">Node.js</li>
+                            <li class="tag">MongoDB</li>
+                        </ul>
+                        <p class="project-links">
+                            <a href="#" target="_blank" rel="noopener">live demo ↗</a>
+                            <a href="#" target="_blank" rel="noopener">source ↗</a>
+                        </p>
                     </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="project-card h-100">
+                    <article class="project-card">
+                        <h3>project-two/</h3>
                         <!-- <img src="assets/img/projects/project-2.png" alt="Screenshot of Project Two" class="project-thumb"> -->
-                        <div class="project-body">
-                            <h3>Project Two</h3>
-                            <p>One sentence on the problem this solves and who it is for.</p>
-                            <ul class="tag-list">
-                                <li class="tag">Next.js</li>
-                                <li class="tag">Redux Toolkit</li>
-                            </ul>
-                            <div class="project-links">
-                                <a href="#" target="_blank" rel="noopener"><i class="fa fa-external-link fa-fw"></i>Live demo</a>
-                                <a href="#" target="_blank" rel="noopener"><i class="fa fa-github fa-fw"></i>Code</a>
-                            </div>
-                        </div>
+                        <p>One sentence on the problem this solves and who it is for.</p>
+                        <ul class="tag-list">
+                            <li class="tag">Next.js</li>
+                            <li class="tag">Redux Toolkit</li>
+                        </ul>
+                        <p class="project-links">
+                            <a href="#" target="_blank" rel="noopener">live demo ↗</a>
+                            <a href="#" target="_blank" rel="noopener">source ↗</a>
+                        </p>
                     </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="project-card h-100">
+                    <article class="project-card">
+                        <h3>project-three/</h3>
                         <!-- <img src="assets/img/projects/project-3.png" alt="Screenshot of Project Three" class="project-thumb"> -->
-                        <div class="project-body">
-                            <h3>Project Three</h3>
-                            <p>One sentence on the problem this solves and who it is for.</p>
-                            <ul class="tag-list">
-                                <li class="tag">Express.js</li>
-                                <li class="tag">Socket.io</li>
-                            </ul>
-                            <div class="project-links">
-                                <a href="#" target="_blank" rel="noopener"><i class="fa fa-external-link fa-fw"></i>Live demo</a>
-                                <a href="#" target="_blank" rel="noopener"><i class="fa fa-github fa-fw"></i>Code</a>
-                            </div>
-                        </div>
+                        <p>One sentence on the problem this solves and who it is for.</p>
+                        <ul class="tag-list">
+                            <li class="tag">Express.js</li>
+                            <li class="tag">Socket.io</li>
+                        </ul>
+                        <p class="project-links">
+                            <a href="#" target="_blank" rel="noopener">live demo ↗</a>
+                            <a href="#" target="_blank" rel="noopener">source ↗</a>
+                        </p>
                     </article>
                 </div>
+                <p class="muted">
+                    # more on <a href="https://github.com/nsbahmedov" target="_blank" rel="noopener">github.com/nsbahmedov ↗</a>
+                </p>
             </div>
-            <p class="text-center mt-5 reveal">
-                <a class="btn btn-primary btn-lg btn-default" href="https://github.com/nsbahmedov" target="_blank"
-                    rel="noopener">
-                    <i class="fa fa-github fa-fw"></i>
-                    More on GitHub
-                </a>
-            </p>
-        </div>
-    </section>
+        </section>
 
-    <section class="content-section" id="about">
-        <div class="container">
-            <div class="row align-items-center flex-column-reverse flex-lg-row">
-                <!-- Left Side -->
-                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0 reveal">
-                    <h2>About</h2>
-                    <p>
-                        Hi! I'm Nasib, a self-taught web developer who loves coding and learns something new
-                        every day.
-                    </p>
-                    <p>
-                        I specialize in the MERN stack (MongoDB, Express, React, Node.js) and build modern,
-                        scalable web applications with a strong focus on performance, clean architecture
-                        and user experience. From dynamic frontends to robust backend systems, I enjoy turning
-                        ideas into working products, and I'm always eager to take on challenges that help me grow.
-                    </p>
-                </div>
-
-                <!-- Right Side -->
-                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0 reveal reveal-delay">
-                    <img src="assets/img/coding-bro.svg" alt="" class="img-fluid" />
-                </div>
+        <!-- ! about -->
+        <section class="block" id="about" data-path="~/about">
+            <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">cat about.md</span></p>
+            <div class="out prose">
+                <h2><span class="md-mark">#</span> About</h2>
+                <p>
+                    Hi! I'm Nasib, a self-taught web developer who loves coding and learns something new
+                    every day.
+                </p>
+                <p>
+                    I specialize in the MERN stack (MongoDB, Express, React, Node.js) and build modern,
+                    scalable web applications with a strong focus on performance, clean architecture
+                    and user experience. From dynamic frontends to robust backend systems, I enjoy turning
+                    ideas into working products, and I'm always eager to take on challenges that help me grow.
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="content-section" id="skills">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Left Side -->
-                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0 reveal">
-                    <img src="assets/img/programming-bro.svg" alt="" class="img-fluid" />
-                </div>
-
-                <!-- Right Side -->
-                <div class="col-lg-6 text-center mb-4 mb-lg-0 reveal reveal-delay">
-                    <h2>Technical skills</h2>
-                    <p class="skills-hint" id="skills-hint" hidden>Click a skill to see the projects that use it.</p>
-                    <ul class="tag-list justify-content-center reveal-stagger">
-                        <li class="tag">HTML5</li>
-                        <li class="tag">CSS3</li>
-                        <li class="tag">Bootstrap</li>
-                        <li class="tag">JavaScript</li>
-                        <li class="tag">jQuery</li>
-                        <li class="tag">React.js</li>
-                        <li class="tag">Next.js</li>
-                        <li class="tag">Redux / Redux Toolkit</li>
-                        <li class="tag">Express.js</li>
-                        <li class="tag">Node.js</li>
-                        <li class="tag">MongoDB</li>
-                        <li class="tag">Socket.io</li>
-                        <li class="tag">Git (GitHub, GitLab)</li>
-                        <li class="tag">CI/CD</li>
-                        <li class="tag">API documentation</li>
-                    </ul>
-                    <p>Languages: English (fluent)</p>
-
-                    <a class="btn btn-primary btn-lg btn-default" id="cv-link"
-                        href="https://drive.google.com/file/d/10ytBP57ZdeeG0rBaPkm5hifTkajpP7bI/view?usp=sharing"
-                        target="_blank" rel="noopener">
-                        <i class="fa fa-download fa-fw"></i>
-                        Download resume (CV)
-                    </a>
-
-                </div>
+        <!-- ! skills -->
+        <section class="block" id="skills" data-path="~/skills">
+            <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">cat skills.json</span></p>
+            <div class="out">
+                <h2 class="sr-only">Skills</h2>
+                <p class="muted" id="skills-hint" hidden>// click a skill to see the projects that use it</p>
+<pre class="json">{
+  <span class="json-key">"frontend"</span>: [<span class="skill">HTML5</span>, <span class="skill">CSS3</span>, <span class="skill">Bootstrap</span>, <span class="skill">JavaScript</span>, <span class="skill">jQuery</span>,
+               <span class="skill">React.js</span>, <span class="skill">Next.js</span>, <span class="skill">Redux / Redux Toolkit</span>],
+  <span class="json-key">"backend"</span>:  [<span class="skill">Node.js</span>, <span class="skill">Express.js</span>, <span class="skill">MongoDB</span>, <span class="skill">Socket.io</span>],
+  <span class="json-key">"tools"</span>:    [<span class="skill">Git (GitHub, GitLab)</span>, <span class="skill">CI/CD</span>, <span class="skill">API documentation</span>],
+  <span class="json-key">"languages"</span>: [<span class="json-string">"English (fluent)"</span>],
+  <span class="json-key">"learning"</span>: <span class="json-bool">true</span>
+}</pre>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="text-center content-section" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto reveal">
-                    <h2>Contact me</h2>
-                    <p>Open to collaboration and new opportunities.</p>
-                    <p>
-                        <i class="fa fa-envelope-o fa-fw"></i>
-                        <a href="mailto:nsbahmedov@gmail.com" class="text-decoration-none">nsbahmedov@gmail.com</a>
-                    </p>
-                    <p>
-                        <i class="fa fa-map-marker fa-fw"></i>
-                        <a href="https://maps.app.goo.gl/haPpwmqMVVKPBbVJ8" target="_blank" rel="noopener"
-                            class="text-decoration-none">Baku, Azerbaijan</a>
-                    </p>
-                    <ul class="list-inline banner-social-buttons">
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-lg btn-default" href="https://github.com/nsbahmedov"
-                                target="_blank" rel="noopener"><i class="fa fa-github fa-fw"></i><span
-                                    class="network-name">&nbsp;GitHub</span></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-lg btn-default"
-                                href="https://linkedin.com/in/nasib-ahmadov-web" target="_blank" rel="noopener"><i
-                                    class="fa fa-linkedin fa-fw"></i><span
-                                    class="network-name">&nbsp;LinkedIn</span></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-lg btn-default" href="https://instagram.com/ahmadovnasib"
-                                target="_blank" rel="noopener"><i class="fa fa-instagram fa-fw"></i><span
-                                    class="network-name">&nbsp;Instagram</span></a>
-                        </li>
-                    </ul>
-                </div>
+        <!-- ! contact -->
+        <section class="block" id="contact" data-path="~/contact">
+            <p class="cmd"><span class="ps1">visitor@nasib:~$</span> <span class="cmd-text">contact --all</span></p>
+            <div class="out">
+                <h2 class="sr-only">Contact</h2>
+                <dl class="contact-list">
+                    <dt>email</dt>
+                    <dd><a href="mailto:nsbahmedov@gmail.com">nsbahmedov@gmail.com</a></dd>
+                    <dt>github</dt>
+                    <dd><a href="https://github.com/nsbahmedov" target="_blank" rel="noopener">github.com/nsbahmedov ↗</a></dd>
+                    <dt>linkedin</dt>
+                    <dd><a href="https://linkedin.com/in/nasib-ahmadov-web" target="_blank" rel="noopener">linkedin.com/in/nasib-ahmadov-web ↗</a></dd>
+                    <dt>instagram</dt>
+                    <dd><a href="https://instagram.com/ahmadovnasib" target="_blank" rel="noopener">instagram.com/ahmadovnasib ↗</a></dd>
+                    <dt>location</dt>
+                    <dd><a href="https://maps.app.goo.gl/haPpwmqMVVKPBbVJ8" target="_blank" rel="noopener">Baku, Azerbaijan ↗</a></dd>
+                    <dt>resume</dt>
+                    <dd><a id="cv-link" href="https://drive.google.com/file/d/10ytBP57ZdeeG0rBaPkm5hifTkajpP7bI/view?usp=sharing" target="_blank" rel="noopener">resume.pdf ↗</a></dd>
+                </dl>
+                <p class="ok">✔ Open to collaboration and new opportunities.</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="container text-center">
-            <p>Copyright ©&nbsp;Nasib Ahmadov <span id="year"></span></p>
-            <p class="credit">
-                Illustrations by <a href="https://storyset.com/" target="_blank" rel="noopener">Storyset</a>
-            </p>
-        </div>
+        <!-- ! interactive shell (terminal.js) -->
+        <section class="block shell" id="shell" data-path="~">
+            <h2 class="sr-only">Interactive terminal</h2>
+            <p class="muted"># Your turn. This one is a real shell: type a command and press Enter.</p>
+            <div class="shell-output" id="shell-output" aria-live="polite"></div>
+            <form class="shell-line" id="shell-form" autocomplete="off">
+                <label class="ps1" for="shell-input">visitor@nasib:~$</label>
+                <input class="shell-input" id="shell-input" type="text" autocapitalize="off" autocorrect="off"
+                    spellcheck="false" enterkeyhint="send" placeholder="type help">
+            </form>
+            <noscript>
+                <p class="muted"># The interactive shell needs JavaScript. Everything above works without it.</p>
+            </noscript>
+        </section>
+
+    </main>
+
+    <footer class="screen footer muted">
+        <p># © <span id="year">2026</span> Nasib Ahmadov · hand-written HTML, CSS &amp; JavaScript</p>
     </footer>
 
     <!-- ! script files -->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/grayscale.js"></script>
     <script src="assets/js/interactions.js"></script>
     <script src="assets/js/terminal.js"></script>
 </body>

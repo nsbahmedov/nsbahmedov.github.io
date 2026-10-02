@@ -3,42 +3,109 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ! scroll reveal
+  // ! footer year + "Last login" line
+  var year = document.getElementById('year');
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+  var lastLogin = document.getElementById('last-login');
+  if (lastLogin) {
+    lastLogin.textContent = new Date().toString().split(' GMT')[0];
+  }
+
+  // ! type each section's command when it scrolls into view, then show its output
   // The <head> script adds .reveal-ready only when this can run, so content
   // stays visible for reduced-motion users and browsers without IntersectionObserver.
-  if (document.documentElement.classList.contains('reveal-ready')) {
-    var targets = document.querySelectorAll('.reveal, .reveal-stagger');
+  function typeCommand(block) {
+    var target = block.querySelector('.cmd-text');
+    var text = target.textContent;
+    var caret = document.createElement('span');
+    caret.className = 'caret';
+    var i = 0;
 
-    for (var i = 0; i < targets.length; i++) {
-      if (targets[i].classList.contains('reveal-stagger')) {
-        var children = targets[i].children;
-        for (var j = 0; j < children.length; j++) {
-          children[j].style.setProperty('--i', j);
-        }
+    target.textContent = '';
+    target.after(caret);
+    block.classList.add('is-typing');
+
+    (function next() {
+      if (i < text.length) {
+        target.textContent += text[i++];
+        setTimeout(next, 45 + Math.random() * 40);
+      } else {
+        setTimeout(function () {
+          caret.remove();
+          block.classList.remove('is-typing');
+          block.classList.add('is-done');
+        }, 180);
       }
-    }
+    })();
+  }
 
-    var observer = new IntersectionObserver(function (entries) {
+  var blocks = document.querySelectorAll('.block');
+
+  if (document.documentElement.classList.contains('reveal-ready')) {
+    var typer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          typer.unobserve(entry.target);
+          typeCommand(entry.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }, { rootMargin: '0px 0px -15% 0px' });
 
-    for (var k = 0; k < targets.length; k++) {
-      observer.observe(targets[k]);
+    for (var b = 0; b < blocks.length; b++) {
+      if (blocks[b].querySelector('.cmd-text')) {
+        typer.observe(blocks[b]);
+      }
     }
   }
+
+  // ! title bar: highlight the current section and show its path
+  // The current section is the last one whose top has scrolled past 40% of the screen.
+  var title = document.getElementById('titlebar-title');
+  var tabs = document.querySelectorAll('.titlebar-tabs a');
+  var currentId = null;
+
+  function updateCurrentSection() {
+    var current = blocks[0];
+    var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    for (var i = 0; i < blocks.length; i++) {
+      if (atBottom || blocks[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
+        current = blocks[i];
+      }
+    }
+    if (!current || current.id === currentId) {
+      return;
+    }
+    currentId = current.id;
+    if (title) {
+      title.textContent = 'visitor@nasib: ' + current.getAttribute('data-path');
+    }
+    for (var t = 0; t < tabs.length; t++) {
+      tabs[t].classList.toggle('is-active', tabs[t].getAttribute('href') === '#' + currentId);
+    }
+  }
+
+  var spyQueued = false;
+  window.addEventListener('scroll', function () {
+    if (!spyQueued) {
+      spyQueued = true;
+      requestAnimationFrame(function () {
+        spyQueued = false;
+        updateCurrentSection();
+      });
+    }
+  }, { passive: true });
+  window.addEventListener('resize', updateCurrentSection);
+  updateCurrentSection();
 
   // ! clickable skills -> highlight projects that use them
   var projectsSection = document.getElementById('projects');
   var filterStatus = document.getElementById('project-filter');
-  var skillTags = document.querySelectorAll('#skills .tag-list .tag');
+  var skills = document.querySelectorAll('#skills .skill');
   var cards = document.querySelectorAll('#projects .project-card');
 
-  if (!projectsSection || !filterStatus || !skillTags.length) {
+  if (!projectsSection || !filterStatus || !skills.length) {
     return;
   }
 
@@ -61,7 +128,6 @@
     for (var i = 0; i < cards.length; i++) {
       cards[i].classList.remove('is-match', 'is-dimmed');
     }
-    projectsSection.classList.remove('is-filtered');
     filterStatus.hidden = true;
   }
 
@@ -91,30 +157,28 @@
 
     var text = filterStatus.querySelector('.project-filter-text');
     if (matches) {
-      projectsSection.classList.add('is-filtered');
-      text.textContent = 'Projects built with ' + label + ': ' + matches;
+      text.textContent = '$ grep -l "' + label + '" ~/projects/*  → ' + matches + (matches === 1 ? ' match' : ' matches');
     } else {
       for (var k = 0; k < cards.length; k++) {
         cards[k].classList.remove('is-dimmed');
       }
-      text.textContent = 'No project here uses ' + label + ' yet. More on GitHub.';
+      text.textContent = '$ grep -l "' + label + '" ~/projects/*  → no matches yet, see GitHub';
     }
     filterStatus.hidden = false;
 
     projectsSection.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
   }
 
-  for (var s = 0; s < skillTags.length; s++) {
-    var tag = skillTags[s];
+  for (var n = 0; n < skills.length; n++) {
+    var skill = skills[n];
     var button = document.createElement('button');
     button.type = 'button';
-    button.className = 'tag-btn';
-    button.textContent = tag.textContent.trim();
+    button.className = 'skill-btn';
+    button.textContent = skill.textContent.trim();
     button.setAttribute('aria-pressed', 'false');
     button.title = 'Show projects built with ' + button.textContent;
-    tag.textContent = '';
-    tag.classList.add('tag-clickable');
-    tag.appendChild(button);
+    skill.textContent = '';
+    skill.appendChild(button);
 
     button.addEventListener('click', function (event) {
       var target = event.currentTarget;

@@ -52,6 +52,23 @@
     }
   }
 
+  // Show the missing path in the fake "cd" error.
+  var path = window.location.pathname;
+  try {
+    path = decodeURIComponent(path);
+  } catch (e) {
+    // malformed escape sequence: show the raw path
+  }
+  if (path.length > 40) {
+    path = path.slice(0, 37) + '...';
+  }
+  ['bug-path', 'bug-path-error'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el && path !== '/404.html') {
+      el.textContent = path;
+    }
+  });
+
   var best = readBest();
   bestEl.textContent = best;
 
@@ -180,7 +197,7 @@
       text = 'New best! ' + text;
     }
     message.textContent = text;
-    startButton.textContent = 'Play again';
+    startButton.textContent = '[ play again ]';
     overlay.hidden = false;
     startButton.focus();
   }

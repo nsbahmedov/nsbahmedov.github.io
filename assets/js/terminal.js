@@ -159,7 +159,7 @@
         for (var i = 0; i < cards.length; i++) {
           var card = cards[i];
           var tags = [].map.call(card.querySelectorAll('.tag'), cleanText).join(', ');
-          var parts = [{ em: (i + 1) + '. ' + cleanText(card.querySelector('h3')) }];
+          var parts = [{ em: (i + 1) + '. ' + cleanText(card.querySelector('h3 .t-only') || card.querySelector('h3')) }];
           if (tags) {
             parts.push({ muted: '  [' + tags + ']' });
           }
@@ -239,6 +239,26 @@
         } else {
           line('cd: no such section: ' + target + ' (try "ls")', 'term-error');
         }
+      }
+    },
+    view: {
+      desc: 'switch layout: view simple | terminal',
+      run: function (args) {
+        if (!window.siteView) {
+          line('view: not available', 'term-error');
+          return;
+        }
+        var wanted = (args[0] || '').toLowerCase();
+        if (wanted !== 'simple' && wanted !== 'terminal') {
+          line('usage: view simple | terminal', 'term-error');
+          return;
+        }
+        if (wanted === 'terminal') {
+          line('You are already in the terminal view. 😄');
+          return;
+        }
+        line('Switching to the simple view...');
+        setTimeout(function () { window.siteView.set('simple'); }, 400);
       }
     },
     theme: {
@@ -445,6 +465,8 @@
       options = SECTIONS;
     } else if (words[0] === 'open') {
       options = Object.keys(LINKS);
+    } else if (words[0] === 'view') {
+      options = ['simple', 'terminal'];
     } else if (words[0] === 'theme') {
       options = ['light', 'dark'];
     } else {
@@ -519,6 +541,11 @@
 
   // ! jump to the shell
   function open() {
+    // In the simple view the shell is hidden: switch back to the terminal first.
+    if (window.siteView && window.siteView.get() === 'simple') {
+      window.siteView.set('terminal', open);
+      return;
+    }
     following = true;
     shell.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'end' });
     focusInput(touch);

@@ -218,6 +218,21 @@
         }
       }
     },
+    theme: {
+      desc: 'switch theme: theme light | dark',
+      run: function (args) {
+        if (!window.siteTheme) {
+          line('theme: not available', 'term-error');
+          return;
+        }
+        var wanted = (args[0] || 'toggle').toLowerCase();
+        if (['light', 'dark', 'toggle'].indexOf(wanted) === -1) {
+          line('usage: theme light | dark', 'term-error');
+          return;
+        }
+        line(['Theme set to ', { em: window.siteTheme.set(wanted) }, '.']);
+      }
+    },
     play: {
       desc: 'take a break: squash some bugs',
       run: function () {
@@ -407,6 +422,8 @@
       options = SECTIONS;
     } else if (words[0] === 'open') {
       options = Object.keys(LINKS);
+    } else if (words[0] === 'theme') {
+      options = ['light', 'dark'];
     } else {
       return;
     }

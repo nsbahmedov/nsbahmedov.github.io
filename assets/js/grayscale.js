@@ -1,6 +1,12 @@
 (function() {
   "use strict"; // Start of use strict
 
+  // Footer copyright year
+  var year = document.querySelector('#year');
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+
   var mainNav = document.querySelector('#mainNav');
 
   if (mainNav) {

@@ -2,12 +2,6 @@
     margin-top: 80px;
 }
 
-@media screen and (max-width: 1600px) {
-    .custom-header {
-        margin-top: 80px;
-    }
-}
-
 @media screen and (min-width: 1600px) {
     .custom-header {
         margin-top: 160px;
@@ -15,12 +9,13 @@
 }
 
 .content-section {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 }
 
-.nav-link.active {
-    background-color: #42dca3 !important;
+#mainNav .nav-link.active {
+    background-color: #42dca3;
+    color: #000;
 }
 
 @keyframes subtle-bounce {
@@ -37,4 +32,80 @@
 
 .custom-bounce {
     animation: subtle-bounce 1.3s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .custom-bounce {
+        animation: none;
+    }
+}
+
+/* ! tags (skills, project stacks) */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px;
+}
+
+.tag {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.85rem;
+    color: #fff;
+    background-color: #212529;
+    border: 1px solid rgba(66, 220, 163, 0.35);
+    border-radius: 0.25rem;
+}
+
+/* ! projects */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #111;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.project-card:hover {
+    border-color: #42dca3;
+    transform: translateY(-3px);
+}
+
+.project-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.project-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1.5rem;
+}
+
+.project-body h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: auto;
+}
+
+.project-links a {
+    text-decoration: none;
+}
+
+footer .credit {
+    margin-top: 0.5rem;
+    font-size: 12px;
+    opacity: 0.7;
 }

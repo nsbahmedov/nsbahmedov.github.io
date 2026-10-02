@@ -25,6 +25,13 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- ! hide scroll-reveal elements only when they can actually be revealed -->
+    <script>
+        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.classList.add('reveal-ready');
+        }
+    </script>
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="27">
@@ -69,6 +76,9 @@
                         I'm Nasib, a MERN developer in Baku. I design, build and deploy web applications
                         that solve real business problems, from React frontends to Node.js APIs.
                     </p>
+                    <button type="button" class="term-hint" data-open-terminal hidden>
+                        Prefer the command line? <span>Open the terminal</span> <kbd>`</kbd>
+                    </button>
                     <a class="btn btn-link btn-circle custom-bounce" role="button" href="#projects"
                         aria-label="Scroll to projects">
                         <i class="fa fa-angle-double-down"></i>
@@ -80,8 +90,12 @@
 
     <section class="content-section" id="projects">
         <div class="container">
-            <h2 class="text-center">Projects</h2>
-            <div class="row g-4">
+            <h2 class="text-center reveal">Projects</h2>
+            <div class="project-filter" id="project-filter" role="status" hidden>
+                <span class="project-filter-text"></span>
+                <button type="button" class="project-filter-clear">Show all</button>
+            </div>
+            <div class="row g-4 reveal-stagger">
                 <!--
                     TODO: replace each placeholder card with a real project.
                     For each one: a screenshot (put it in assets/img/projects/ and
@@ -141,7 +155,7 @@
                     </article>
                 </div>
             </div>
-            <p class="text-center mt-5">
+            <p class="text-center mt-5 reveal">
                 <a class="btn btn-primary btn-lg btn-default" href="https://github.com/nsbahmedov" target="_blank"
                     rel="noopener">
                     <i class="fa fa-github fa-fw"></i>
@@ -155,7 +169,7 @@
         <div class="container">
             <div class="row align-items-center flex-column-reverse flex-lg-row">
                 <!-- Left Side -->
-                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0 reveal">
                     <h2>About</h2>
                     <p>
                         Hi! I'm Nasib, a self-taught web developer who loves coding and learns something new
@@ -170,7 +184,7 @@
                 </div>
 
                 <!-- Right Side -->
-                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0">
+                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0 reveal reveal-delay">
                     <img src="assets/img/coding-bro.svg" alt="" class="img-fluid" />
                 </div>
             </div>
@@ -181,14 +195,15 @@
         <div class="container">
             <div class="row align-items-center">
                 <!-- Left Side -->
-                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0">
+                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0 reveal">
                     <img src="assets/img/programming-bro.svg" alt="" class="img-fluid" />
                 </div>
 
                 <!-- Right Side -->
-                <div class="col-lg-6 text-center mb-4 mb-lg-0">
+                <div class="col-lg-6 text-center mb-4 mb-lg-0 reveal reveal-delay">
                     <h2>Technical skills</h2>
-                    <ul class="tag-list justify-content-center">
+                    <p class="skills-hint" id="skills-hint" hidden>Click a skill to see the projects that use it.</p>
+                    <ul class="tag-list justify-content-center reveal-stagger">
                         <li class="tag">HTML5</li>
                         <li class="tag">CSS3</li>
                         <li class="tag">Bootstrap</li>
@@ -207,7 +222,7 @@
                     </ul>
                     <p>Languages: English (fluent)</p>
 
-                    <a class="btn btn-primary btn-lg btn-default"
+                    <a class="btn btn-primary btn-lg btn-default" id="cv-link"
                         href="https://drive.google.com/file/d/10ytBP57ZdeeG0rBaPkm5hifTkajpP7bI/view?usp=sharing"
                         target="_blank" rel="noopener">
                         <i class="fa fa-download fa-fw"></i>
@@ -222,7 +237,7 @@
     <section class="text-center content-section" id="contact">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-8 mx-auto reveal">
                     <h2>Contact me</h2>
                     <p>Open to collaboration and new opportunities.</p>
                     <p>
@@ -269,6 +284,8 @@
     <!-- ! script files -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/grayscale.js"></script>
+    <script src="assets/js/interactions.js"></script>
+    <script src="assets/js/terminal.js"></script>
 </body>
 
 </html>
